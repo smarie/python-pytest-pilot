@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuite errors="0" failures="0" name="pytest" skips="0" tests="1" time="0.026"><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="0" name="test_dummy" time="0.0031998157501220703"></testcase></testsuite>
