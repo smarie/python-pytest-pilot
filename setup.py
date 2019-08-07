@@ -11,7 +11,7 @@ from setuptools import setup, find_packages
 here = path.abspath(path.dirname(__file__))
 
 # *************** Dependencies *********
-INSTALL_REQUIRES = []
+INSTALL_REQUIRES = ['enum34;python_version<"3.4"']
 DEPENDENCY_LINKS = []
 SETUP_REQUIRES = ['pytest-runner', 'setuptools_scm', 'pypandoc', 'pandoc', 'six']
 TESTS_REQUIRE = ['pytest', 'pytest-logging', 'pytest-cov', 'pytest-harvest']
