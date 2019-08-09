@@ -7,6 +7,7 @@ import pytest
 
 # ------------ declare a new hook that users should implement
 from pytest_pilot import EasyMarker
+from pytest_pilot.pytest_marks import set_verbosity_level
 
 
 def pytest_addhooks(pluginmanager):
@@ -54,18 +55,37 @@ def pytest_load_initial_conftests(early_config, parser, args):
     else:
         all_markers = results[0]
 
+    # existing options
+    existing_opts = vars(early_config.option)
+
     # then add the options accordingly
     for marker in all_markers:
-        parser.addoption(marker.cmdoption, action="store", metavar="NAME", help=marker.cmdhelp)
+        short_exists = marker.cmdoption_short.strip('-') in existing_opts if marker.cmdoption_short is not None else False
+        long_exists = marker.cmdoption_long.strip('-') in existing_opts
+        if short_exists or long_exists:
+            conflicting = []
+            if short_exists:
+                conflicting.append(marker.cmdoption_short)
+            if long_exists:
+                conflicting.append(marker.cmdoption_long)
+            raise ValueError("Error registering marker '%s': a command with this name already exists. Conflicting "
+                             "name(s): %s" % (marker, conflicting))
+        else:
+            if marker.has_arg:
+                parser.addoption(marker.cmdoption_long, action="store", metavar="NAME", help=marker.cmdhelp)
+            else:
+                parser.addoption(marker.cmdoption_long, action="store_true", help=marker.cmdhelp)
 
 
 def pytest_configure(config):
     # register our additional markers in the help
     global all_markers
     for marker in all_markers:
-        config.addinivalue_line(
-            "markers", "%s(id): %s" % (marker.marker_id, marker.markhelp)
-        )
+        config.addinivalue_line("markers", marker.markhelp)
+
+    # detect if we are in verbose mode
+    verbositylevel = config.getoption('verbose')
+    set_verbosity_level(verbositylevel)
 
 
 def pytest_runtest_setup(item):

@@ -1,5 +1,5 @@
 # from .new_hooks import pytest_pilot_hookimpl as hookimpl
-from .pytest_marks import EasyMarker, NoFlagBehavior
+from .pytest_marks import EasyMarker
 
 try:
     # -- Distribution mode --
@@ -15,5 +15,5 @@ except ImportError:
 
 __all__ = [
     '__version__',  # 'hookimpl',
-    'EasyMarker', 'NoFlagBehavior'
+    'EasyMarker'
 ]
