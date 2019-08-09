@@ -216,7 +216,8 @@ class EasyMarker(object):
                                  % (self.marker_id, nbargs, mark_value))
             else:
                 # single value:
-                self.used_values.add(mark_value)
+                # TODO self.used_values.add(mark_value[0]) but sometimes it received a MarkDecorator
+                pass
 
         # create it
         return getattr(pytest.mark, self.marker_id)(*mark_value)
