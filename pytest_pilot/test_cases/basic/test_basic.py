@@ -1,4 +1,4 @@
-from pytest_pilot.test_cases.basic.conftest import flavourmarker, envmarker
+from .conftest import flavourmarker, envmarker
 
 
 @flavourmarker('yellow')
