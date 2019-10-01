@@ -14,6 +14,15 @@ def get_file(case_folder, file_name):
         return f.read()
 
 
+def make_file(testdir, case_folder, file_name):
+    dest = testdir.tmpdir.join(file_name)
+    dest.dirpath().ensure_dir()
+
+    with open(join(case_folder, file_name)) as f:
+        contents = f.read()
+        dest.write(contents)
+
+
 @contextmanager
 def finalizer(tdir):
     try:
@@ -66,7 +75,8 @@ def test_basic_options_help(testdir):
 
         testdir.makeconftest(get_conftest(case_folder))
         testdir.makepyfile(get_file(case_folder, 'test_basic.py'))
-        testdir.makepyfile(get_file(case_folder, '__init__.py'))  # for python 2 this is required
+        make_file(testdir, case_folder, '__init__.py')  # required for the "import from ." to work
+
         # 2) assert
         result = testdir.runpytest(testdir.tmpdir, '--help')
 
@@ -90,7 +100,7 @@ def test_basic_run_envquery(testdir):
         case_folder = join(CASES_DIR, 'basic')
         testdir.makeconftest(get_conftest(case_folder))
         testdir.makepyfile(get_file(case_folder, 'test_basic.py'))
-        testdir.makepyfile(get_file(case_folder, '__init__.py'))  # for python 2 this is required
+        make_file(testdir, case_folder, '__init__.py')  # required for the "import from ." to work
 
         # 2) run
         result = testdir.runpytest(testdir.tmpdir, '-v', '-s', '--envid', 'env1')
@@ -106,7 +116,7 @@ def test_basic_run_flavourquery(testdir):
         case_folder = join(CASES_DIR, 'basic')
         testdir.makeconftest(get_conftest(case_folder))
         testdir.makepyfile(get_file(case_folder, 'test_basic.py'))
-        testdir.makepyfile(get_file(case_folder, '__init__.py'))  # for python 2 this is required
+        make_file(testdir, case_folder, '__init__.py')  # required for the "import from ." to work
 
         # 2) run
         result = testdir.runpytest(testdir.tmpdir, '-v', '-s', '--flavour', 'red', '--envid', 'env2')
