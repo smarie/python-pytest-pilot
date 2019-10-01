@@ -66,6 +66,7 @@ def test_basic_options_help(testdir):
 
         testdir.makeconftest(get_conftest(case_folder))
         testdir.makepyfile(get_file(case_folder, 'test_basic.py'))
+        testdir.makepyfile(get_file(case_folder, '__init__.py'))  # for python 2 this is required
         # 2) assert
         result = testdir.runpytest(testdir.tmpdir, '--help')
 
@@ -77,7 +78,7 @@ def test_basic_options_help(testdir):
   --envid=NAME          run tests marked as requiring environment NAME (marked
                         with @envid(NAME)), as well as tests not marked with
                         @envid. Important: if you call `pytest` without this
-                        option, tests marked with @envid will *not* be run.""".splitlines(keepends=False)
+                        option, tests marked with @envid will *not* be run.""".splitlines(False)
         result.stdout.fnmatch_lines(expected_lines)
 
 
@@ -89,6 +90,7 @@ def test_basic_run_envquery(testdir):
         case_folder = join(CASES_DIR, 'basic')
         testdir.makeconftest(get_conftest(case_folder))
         testdir.makepyfile(get_file(case_folder, 'test_basic.py'))
+        testdir.makepyfile(get_file(case_folder, '__init__.py'))  # for python 2 this is required
 
         # 2) run
         result = testdir.runpytest(testdir.tmpdir, '-v', '-s', '--envid', 'env1')
@@ -104,6 +106,7 @@ def test_basic_run_flavourquery(testdir):
         case_folder = join(CASES_DIR, 'basic')
         testdir.makeconftest(get_conftest(case_folder))
         testdir.makepyfile(get_file(case_folder, 'test_basic.py'))
+        testdir.makepyfile(get_file(case_folder, '__init__.py'))  # for python 2 this is required
 
         # 2) run
         result = testdir.runpytest(testdir.tmpdir, '-v', '-s', '--flavour', 'red', '--envid', 'env2')
