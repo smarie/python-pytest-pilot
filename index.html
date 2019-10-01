@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
     
     
       
@@ -40,7 +40,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.0284f74d.css">
+      <link rel="stylesheet" href="assets/stylesheets/application.30686662.css">
       
       
     
@@ -169,7 +169,7 @@
         
       
       
-      <main class="md-main">
+      <main class="md-main" role="main">
         <div class="md-main__inner md-grid" data-md-component="container">
           
             
@@ -241,28 +241,62 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installing" title="Installing" class="md-nav__link">
+  <a href="#installing" class="md-nav__link">
     Installing
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage" title="Usage" class="md-nav__link">
+  <a href="#usage" class="md-nav__link">
     Usage
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic" class="md-nav__link">
+    Basic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verbosity-levels" class="md-nav__link">
+    Verbosity levels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#help" class="md-nav__link">
+    Help
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customization" class="md-nav__link">
+    Customization
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#main-features-benefits" title="Main features / benefits" class="md-nav__link">
+  <a href="#main-features-benefits" class="md-nav__link">
     Main features / benefits
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#see-also" title="See Also" class="md-nav__link">
+  <a href="#see-also" class="md-nav__link">
     See Also
   </a>
   
@@ -270,7 +304,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#others" title="Others" class="md-nav__link">
+  <a href="#others" class="md-nav__link">
     Others
   </a>
   
@@ -282,7 +316,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#want-to-contribute" title="Want to contribute ?" class="md-nav__link">
+  <a href="#want-to-contribute" class="md-nav__link">
     Want to contribute ?
   </a>
   
@@ -344,28 +378,62 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installing" title="Installing" class="md-nav__link">
+  <a href="#installing" class="md-nav__link">
     Installing
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage" title="Usage" class="md-nav__link">
+  <a href="#usage" class="md-nav__link">
     Usage
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic" class="md-nav__link">
+    Basic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verbosity-levels" class="md-nav__link">
+    Verbosity levels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#help" class="md-nav__link">
+    Help
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customization" class="md-nav__link">
+    Customization
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#main-features-benefits" title="Main features / benefits" class="md-nav__link">
+  <a href="#main-features-benefits" class="md-nav__link">
     Main features / benefits
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#see-also" title="See Also" class="md-nav__link">
+  <a href="#see-also" class="md-nav__link">
     See Also
   </a>
   
@@ -373,7 +441,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#others" title="Others" class="md-nav__link">
+  <a href="#others" class="md-nav__link">
     Others
   </a>
   
@@ -385,7 +453,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#want-to-contribute" title="Want to contribute ?" class="md-nav__link">
+  <a href="#want-to-contribute" class="md-nav__link">
     Want to contribute ?
   </a>
   
@@ -414,17 +482,170 @@
 <p><em>Slice in your test base thanks to powerful markers</em></p>
 <p><a href="https://pypi.python.org/pypi/pytest-pilot/"><img alt="Python versions" src="https://img.shields.io/pypi/pyversions/pytest-pilot.svg" /></a> <a href="https://travis-ci.org/smarie/python-pytest-pilot"><img alt="Build Status" src="https://travis-ci.org/smarie/python-pytest-pilot.svg?branch=master" /></a> <a href="https://smarie.github.io/python-pytest-pilot/junit/report.html"><img alt="Tests Status" src="https://smarie.github.io/python-pytest-pilot/junit/junit-badge.svg?dummy=8484744" /></a> <a href="https://codecov.io/gh/smarie/python-pytest-pilot"><img alt="codecov" src="https://codecov.io/gh/smarie/python-pytest-pilot/branch/master/graph/badge.svg" /></a></p>
 <p><a href="https://smarie.github.io/python-pytest-pilot/"><img alt="Documentation" src="https://img.shields.io/badge/doc-latest-blue.svg" /></a> <a href="https://pypi.python.org/pypi/pytest-pilot/"><img alt="PyPI" src="https://img.shields.io/pypi/v/pytest-pilot.svg" /></a> <a href="https://pepy.tech/project/pytest-pilot"><img alt="Downloads" src="https://pepy.tech/badge/pytest-pilot" /></a> <a href="https://pepy.tech/project/pytest-pilot"><img alt="Downloads per week" src="https://pepy.tech/badge/pytest-pilot/week" /></a> <a href="https://github.com/smarie/python-pytest-pilot/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/smarie/python-pytest-pilot.svg" /></a></p>
-<p>In <code>pytest</code> we can create custom markers and filter tests according to them using the <code>-m</code> flag, as explained <a href="https://docs.pytest.org/en/latest/example/markers.html">here</a>. However it only supports one kind of marker query behaviour: a test with a mark <M> will run <em>even</em> if you do not use the <code>-m &lt;M&gt;</code> flag. It is also not easy to understand what happens when a marker has a parameter, and how to filter according to this.</p>
-<p><code>pytest-pilot</code> proposes a higher-level API to create and register pytest markers, so that they are easy to understand and use.</p>
+<p>In <code>pytest</code> we can create custom markers and filter tests according to them using the <code>-m</code> flag, as explained <a href="https://docs.pytest.org/en/latest/example/markers.html">here</a>. However </p>
+<ul>
+<li>
+<p>by default it only supports one kind of marker query behaviour: a test with a mark <M> will run <em>even</em> if you do not use the <code>-m &lt;M&gt;</code> flag. If you wish to implement something more complex, you have to add code in your <code>contest.py</code> as explained <a href="http://doc.pytest.org/en/latest/example/markers.html#marking-platform-specific-tests-with-pytest">here</a> </p>
+</li>
+<li>
+<p>It is also not easy to understand what happens when a marker has a parameter (an argument) and how to filter according to this. It seems from <a href="http://doc.pytest.org/en/latest/example/markers.html#custom-marker-and-command-line-option-to-control-test-runs">the examples in the doc</a> that the only way to handle these is again to add code in your <code>contest.py</code></p>
+</li>
+<li>
+<p>In other words, it is not easy to expose a "functional" view to the user, even if all core mechanisms are perfectly working.</p>
+</li>
+</ul>
+<p><code>pytest-pilot</code> proposes <strong>a high-level API to create and register pytest markers so that they are easy to understand and use</strong>. To do this it does not use fancy mechanisms: it simply automates most the patterns demonstrated in the <code>pytest</code> documentation. </p>
 <h2 id="installing">Installing<a class="headerlink" href="#installing" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span>&gt; pip install pytest_pilot
+<div class="codehilite"><pre><span></span>&gt; pip install pytest-pilot
 </pre></div>
 
 
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
-<p><strong>TODO</strong></p>
+<h3 id="basic">Basic<a class="headerlink" href="#basic" title="Permanent link">&para;</a></h3>
+<p>The easiest way to define a marker is to create an instance of <code>EasyMarker</code>, anywhere in your code (in test files, in <code>contest.py</code> files, or even in other python files). </p>
+<p>For example let's create two markers: </p>
+<ul>
+<li>
+<p>one <code>envid</code> marker defining the python environment on which we run. Tests that have this marker should run <strong>only</strong> if <code>pytest</code> is called with a <code>--envid</code> flag indicating that the environment is active.</p>
+</li>
+<li>
+<p>one <code>flavour</code> marker representing an optional filter. Tests that have this marker should run either if <code>pytest</code> is called with the correct <code>--flavour</code>, or if the <code>--flavour</code> flag is not set</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">pytest_pilot</span> <span class="kn">import</span> <span class="n">EasyMarker</span>
+
+<span class="n">flavourmarker</span> <span class="o">=</span> <span class="n">EasyMarker</span><span class="p">(</span><span class="n">marker_id</span><span class="o">=</span><span class="s1">&#39;flavour&#39;</span><span class="p">,</span> 
+                           <span class="n">allowed_values</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">))</span>
+
+<span class="n">envmarker</span> <span class="o">=</span> <span class="n">EasyMarker</span><span class="p">(</span><span class="s1">&#39;envid&#39;</span><span class="p">,</span> 
+                       <span class="n">full_name</span><span class="o">=</span><span class="s1">&#39;environment&#39;</span><span class="p">,</span> 
+                       <span class="n">not_filtering_skips_marked</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>We can now define a few tests in a test file:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">.conftest</span> <span class="kn">import</span> <span class="n">flavourmarker</span><span class="p">,</span> <span class="n">envmarker</span>
+
+<span class="nd">@flavourmarker</span><span class="p">(</span><span class="s1">&#39;yellow&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_yellow_noenv</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+<span class="nd">@flavourmarker</span><span class="p">(</span><span class="s1">&#39;yellow&#39;</span><span class="p">)</span>
+<span class="nd">@envmarker</span><span class="p">(</span><span class="s1">&#39;env1&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_yellow_env1</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+<span class="nd">@envmarker</span><span class="p">(</span><span class="s1">&#39;env2&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_env2</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+<span class="nd">@flavourmarker</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_red_noenv</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">test_nomark</span><span class="p">():</span>
+    <span class="k">pass</span>
+</pre></div>
+
+
+<p>And we can see that the filtering works as expected:</p>
+<ul>
+<li>with no options, the tests marked as requiring an environment are correctly skipped:</li>
+</ul>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; <span class="nv">pytest</span>
+<span class="o">=============================</span> <span class="nb">test</span> session <span class="nv">starts</span> <span class="o">=============================</span>
+<span class="o">(</span>...<span class="o">)</span>
+collected <span class="m">5</span> items                                                              
+test_basic.py::test_yellow_noenv PASSED                            <span class="o">[</span> <span class="m">20</span>%<span class="o">]</span>
+test_basic.py::test_yellow_env1 SKIPPED                            <span class="o">[</span> <span class="m">40</span>%<span class="o">]</span>
+test_basic.py::test_env2 SKIPPED                                   <span class="o">[</span> <span class="m">60</span>%<span class="o">]</span>
+test_basic.py::test_red_noenv PASSED                               <span class="o">[</span> <span class="m">80</span>%<span class="o">]</span>
+test_basic.py::test_nomark PASSED                                  <span class="o">[</span><span class="m">100</span>%<span class="o">]</span>
+<span class="o">=====================</span> <span class="m">3</span> passed, <span class="m">2</span> skipped in <span class="m">0</span>.09 <span class="nv">seconds</span> <span class="o">=====================</span>
+</pre></div>
+
+
+<ul>
+<li>with an <code>--envid</code> option we can add one of them, the non marked tests still being able to run:</li>
+</ul>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; pytest --envid <span class="nv">env1</span>
+<span class="o">=============================</span> <span class="nb">test</span> session <span class="nv">starts</span> <span class="o">=============================</span>
+<span class="o">(</span>...<span class="o">)</span>
+collected <span class="m">5</span> items                                                              
+test_basic.py::test_yellow_noenv PASSED                                  <span class="o">[</span> <span class="m">20</span>%<span class="o">]</span>
+test_basic.py::test_yellow_env1 PASSED                                   <span class="o">[</span> <span class="m">40</span>%<span class="o">]</span>
+test_basic.py::test_env2 SKIPPED                                         <span class="o">[</span> <span class="m">60</span>%<span class="o">]</span>
+test_basic.py::test_red_noenv PASSED                                     <span class="o">[</span> <span class="m">80</span>%<span class="o">]</span>
+test_basic.py::test_nomark PASSED                                        <span class="o">[</span><span class="m">100</span>%<span class="o">]</span>
+<span class="o">=====================</span> <span class="m">4</span> passed, <span class="m">1</span> skipped in <span class="m">0</span>.08 <span class="nv">seconds</span> <span class="o">=====================</span>
+</pre></div>
+
+
+<ul>
+<li>we can use both options together and get expected results:</li>
+</ul>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; pytest --envid env2 --flavour <span class="nv">red</span>
+<span class="o">=============================</span> <span class="nb">test</span> session <span class="nv">starts</span> <span class="o">=============================</span>
+<span class="o">(</span>...<span class="o">)</span>
+collected <span class="m">5</span> items                                                              
+test_basic.py::test_yellow_noenv SKIPPED                                 <span class="o">[</span> <span class="m">20</span>%<span class="o">]</span>
+test_basic.py::test_yellow_env1 SKIPPED                                  <span class="o">[</span> <span class="m">40</span>%<span class="o">]</span>
+test_basic.py::test_env2 PASSED                                          <span class="o">[</span> <span class="m">60</span>%<span class="o">]</span>
+test_basic.py::test_red_noenv PASSED                                     <span class="o">[</span> <span class="m">80</span>%<span class="o">]</span>
+test_basic.py::test_nomark PASSED                                        <span class="o">[</span><span class="m">100</span>%<span class="o">]</span>
+<span class="o">=====================</span> <span class="m">3</span> passed, <span class="m">2</span> skipped in <span class="m">0</span>.07 <span class="nv">seconds</span> <span class="o">=====================</span>
+</pre></div>
+
+
+<h3 id="verbosity-levels">Verbosity levels<a class="headerlink" href="#verbosity-levels" title="Permanent link">&para;</a></h3>
+<p>You can use the verbose pytest flags to get a little more explanation about why tests are skipped or run:</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; pytest -vv --envid env2
+<span class="o">(</span>verbose explanations<span class="o">)</span>
+&gt;&gt;&gt; pytest -vvv --envid env2
+<span class="o">(</span>even more verbose explanations<span class="o">)</span>
+</pre></div>
+
+
+<h3 id="help">Help<a class="headerlink" href="#help" title="Permanent link">&para;</a></h3>
+<p>Help on command options is automatically added to the <code>pytest --help</code> output:</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; pytest --help
+
+<span class="o">(</span>...<span class="o">)</span>
+
+custom options:
+  --flavour<span class="o">=</span>NAME        run tests marked as requiring flavour NAME <span class="o">(</span>marked
+                        with @flavour<span class="o">(</span>NAME<span class="o">))</span>, as well as tests not marked with
+                        @flavour. If you call <span class="sb">`</span>pytest<span class="sb">`</span> without this option,
+                        tests marked with @flavour will *all* be run
+  --envid<span class="o">=</span>NAME          run tests marked as requiring environment NAME <span class="o">(</span>marked
+                        with @envid<span class="o">(</span>NAME<span class="o">))</span>, as well as tests not marked with
+                        @envid. Important: <span class="k">if</span> you call <span class="sb">`</span>pytest<span class="sb">`</span> without this
+                        option, tests marked with @envid will *not* be run.
+
+<span class="o">(</span>...<span class="o">)</span>
+</pre></div>
+
+
+<p>Help on markers is automatically added to the <code>pytest --markers</code> output:</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; pytest --markers
+
+<span class="o">(</span>...<span class="o">)</span>
+
+@pytest.mark.flavour<span class="o">(</span>value<span class="o">)</span>: mark <span class="nb">test</span> to run only when <span class="nb">command</span> option flavour is used to <span class="nb">set</span> --flavour to &lt;value&gt;, or <span class="k">if</span> the option is not used at all.
+
+@pytest.mark.envid<span class="o">(</span>value<span class="o">)</span>: mark <span class="nb">test</span> to run only when <span class="nb">command</span> option environment is used to <span class="nb">set</span> --envid to &lt;value&gt;.
+
+<span class="o">(</span>...<span class="o">)</span>
+</pre></div>
+
+
+<h3 id="customization">Customization<a class="headerlink" href="#customization" title="Permanent link">&para;</a></h3>
+<p>Almost everything is configurable from the <code>EasyMarker</code> constructor: help messages, command option short and long names, filtering behavious when the flag is present or not and the mark is present or not, etc.</p>
+<p>See <a href="api_reference/">API reference</a> for details.</p>
 <h2 id="main-features-benefits">Main features / benefits<a class="headerlink" href="#main-features-benefits" title="Permanent link">&para;</a></h2>
-<p><strong>TODO</strong></p>
+<ul>
+<li>Create intuitive markers in minutes, with consistent behaviour and associated command options, documented with user-friendly help.</li>
+</ul>
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
 <li>pytest tutorial on <a href="https://docs.pytest.org/en/latest/example/markers.html">working with custom markers</a></li>
@@ -490,7 +711,7 @@
       
     </div>
     
-      <script src="assets/javascripts/application.245445c6.js"></script>
+      <script src="assets/javascripts/application.c648116f.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       
