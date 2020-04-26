@@ -325,7 +325,7 @@ function filter_table(elem) {
     not_found_message.hidden = !all_rows_hidden;
 }
 </script>
-    <p>Report generated on 28-Jan-2020 at 15:17:57</p>
+    <p>Report generated on 26-Apr-2020 at 14:01:22</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -335,7 +335,7 @@ function filter_table(elem) {
         <td>Python</td>
         <td>3.5.6</td></tr></table>
     <h2>Summary</h2>
-    <p>6 tests ran in 1.80 seconds. </p>
+    <p>6 tests ran in 1.59 seconds. </p>
     <p>(Un)check the boxes to filter the results.</p><input checked="true" data-test-result="passed" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">6 passed</span> <input checked="true" data-test-result="skipped" disabled="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span> <input checked="true" data-test-result="failed" disabled="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">0 failed</span> <input checked="true" data-test-result="error" disabled="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span> <input checked="true" data-test-result="xfailed" disabled="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span> <input checked="true" data-test-result="xpassed" disabled="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span> <input checked="true" data-test-result="rerun" disabled="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="rerun">0 rerun</span> 
     <h2>Results</h2>
     <table id="results-table">
@@ -351,14 +351,14 @@ function filter_table(elem) {
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">pytest_pilot/tests/test_main.py::test_ensure_pytest_pilot_installed</td>
-          <td class="col-duration">0.30</td>
+          <td class="col-duration">0.26</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="5">
             <div class="log">----------------------------- Captured stdout call -----------------------------<br/>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_ensure_pytest_pilot_installed0/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_ensure_pytest_pilot_installed0 --trace-config --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
      in: /tmp/pytest-of-travis/pytest-0/testdir/test_ensure_pytest_pilot_installed0
-PLUGIN registered: &lt;_pytest.config.PytestPluginManager object at 0x7f638c0390f0&gt;
-PLUGIN registered: &lt;_pytest.config.Config object at 0x7f638a1dcd30&gt;
+PLUGIN registered: &lt;_pytest.config.PytestPluginManager object at 0x7f957ce0b198&gt;
+PLUGIN registered: &lt;_pytest.config.Config object at 0x7f957afb1dd8&gt;
 PLUGIN registered: &lt;module &apos;_pytest.mark&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/mark.py&apos;&gt;
 PLUGIN registered: &lt;module &apos;_pytest.main&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/main.py&apos;&gt;
 PLUGIN registered: &lt;module &apos;_pytest.terminal&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/terminal.py&apos;&gt;
@@ -384,60 +384,62 @@ PLUGIN registered: &lt;module &apos;pytest_pilot.plugin&apos; from &apos;/home/t
 PLUGIN registered: &lt;module &apos;pytest_logging.plugin&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_logging/plugin.py&apos;&gt;
 PLUGIN registered: &lt;module &apos;pytest_html.plugin&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_html/plugin.py&apos;&gt;
 PLUGIN registered: &lt;module &apos;pytest_harvest.plugin&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_harvest/plugin.py&apos;&gt;
-PLUGIN registered: &lt;_pytest.capture.CaptureManager object at 0x7f6389119eb8&gt;
+PLUGIN registered: &lt;_pytest.capture.CaptureManager object at 0x7f957a0390b8&gt;
 PLUGIN registered: &lt;Session &apos;test_ensure_pytest_pilot_installed0&apos;&gt;
-PLUGIN registered: &lt;_pytest.cacheprovider.LFPlugin object at 0x7f638911fa20&gt;
-PLUGIN registered: &lt;_pytest.terminal.TerminalReporter object at 0x7f63890f52e8&gt;
-PLUGIN registered: &lt;_pytest.python.FixtureManager object at 0x7f63890f5d68&gt;
+PLUGIN registered: &lt;_pytest.cacheprovider.LFPlugin object at 0x7f957a042908&gt;
+PLUGIN registered: &lt;_pytest.terminal.TerminalReporter object at 0x7f957a020438&gt;
+PLUGIN registered: &lt;pytest_harvest.plugin.DefaultXDistHarvester object at 0x7f957a020c88&gt;
+PLUGIN registered: &lt;_pytest.python.FixtureManager object at 0x7f957a020eb8&gt;
 ============================= test session starts ==============================
 platform linux -- Python 3.5.6, pytest-2.9.2, py-1.8.1, pluggy-0.3.1
 using: pytest-2.9.2 pylib-1.8.1
 setuptools registered plugins:
-  pytest-pilot-0.1.1.dev2+ga610aab at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_pilot/plugin.py
+  pytest-pilot-0.1.1.dev5+gc35a194 at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_pilot/plugin.py
   pytest-logging-2015.11.4 at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_logging/plugin.py
   pytest-html-1.9.0 at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_html/plugin.py
-  pytest-harvest-1.7.4 at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_harvest/plugin.py
+  pytest-harvest-1.9.1 at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_harvest/plugin.py
 active plugins:
-    funcmanage          : &lt;_pytest.python.FixtureManager object at 0x7f63890f5d68&gt;
-    main                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/main.py
-    capturemanager      : &lt;_pytest.capture.CaptureManager object at 0x7f6389119eb8&gt;
-    html                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_html/plugin.py
-    monkeypatch         : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/monkeypatch.py
-    terminalreporter    : &lt;_pytest.terminal.TerminalReporter object at 0x7f63890f52e8&gt;
-    logging             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_logging/plugin.py
-    140065527533808     : &lt;_pytest.config.PytestPluginManager object at 0x7f638c0390f0&gt;
-    pilot               : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_pilot/plugin.py
-    runner              : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/runner.py
-    python              : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/python.py
+    funcmanage          : &lt;_pytest.python.FixtureManager object at 0x7f957a020eb8&gt;
     recwarn             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/recwarn.py
-    harvest             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_harvest/plugin.py
-    capture             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/capture.py
-    terminal            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/terminal.py
-    pastebin            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/pastebin.py
-    nose                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/nose.py
-    tmpdir              : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/tmpdir.py
+    pytestconfig        : &lt;_pytest.config.Config object at 0x7f957afb1dd8&gt;
+    runner              : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/runner.py
     junitxml            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/junitxml.py
-    pdb                 : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/pdb.py
-    pytestconfig        : &lt;_pytest.config.Config object at 0x7f638a1dcd30&gt;
-    genscript           : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/genscript.py
-    skipping            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/skipping.py
-    session             : &lt;Session &apos;test_ensure_pytest_pilot_installed0&apos;&gt;
-    lfplugin            : &lt;_pytest.cacheprovider.LFPlugin object at 0x7f638911fa20&gt;
-    helpconfig          : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/helpconfig.py
-    assertion           : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/assertion/__init__.py
-    cacheprovider       : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/cacheprovider.py
-    mark                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/mark.py
-    doctest             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/doctest.py
-    resultlog           : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/resultlog.py
+    nose                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/nose.py
+    terminal            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/terminal.py
+    capturemanager      : &lt;_pytest.capture.CaptureManager object at 0x7f957a0390b8&gt;
     unittest            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/unittest.py
+    python              : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/python.py
+    assertion           : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/assertion/__init__.py
+    pilot               : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_pilot/plugin.py
+    monkeypatch         : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/monkeypatch.py
+    main                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/main.py
+    resultlog           : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/resultlog.py
+    genscript           : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/genscript.py
+    pdb                 : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/pdb.py
+    lfplugin            : &lt;_pytest.cacheprovider.LFPlugin object at 0x7f957a042908&gt;
+    cacheprovider       : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/cacheprovider.py
+    harvest             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_harvest/plugin.py
+    helpconfig          : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/helpconfig.py
+    mark                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/mark.py
+    logging             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_logging/plugin.py
+    140279973809288     : &lt;pytest_harvest.plugin.DefaultXDistHarvester object at 0x7f957a020c88&gt;
+    terminalreporter    : &lt;_pytest.terminal.TerminalReporter object at 0x7f957a020438&gt;
+    tmpdir              : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/tmpdir.py
+    html                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_html/plugin.py
+    140280021954968     : &lt;_pytest.config.PytestPluginManager object at 0x7f957ce0b198&gt;
+    doctest             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/doctest.py
+    session             : &lt;Session &apos;test_ensure_pytest_pilot_installed0&apos;&gt;
+    skipping            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/skipping.py
+    pastebin            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/pastebin.py
+    capture             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/capture.py
 rootdir: /tmp/pytest-of-travis/pytest-0/testdir/test_ensure_pytest_pilot_installed0, inifile: 
-plugins: pilot-0.1.1.dev2+ga610aab, logging-2015.11.4, html-1.9.0, harvest-1.7.4
+plugins: pilot-0.1.1.dev5+gc35a194, logging-2015.11.4, html-1.9.0, harvest-1.9.1
 collected 0 items
 
-========================= no tests ran in 0.01 seconds =========================
+========================= no tests ran in 0.00 seconds =========================
 ----------------------------- Captured stderr call -----------------------------<br/>nomatch: &apos;*pytest-pilot-*&apos;
-    and: &apos;PLUGIN registered: &lt;_pytest.config.PytestPluginManager object at 0x7f638c0390f0&gt;&apos;
-    and: &apos;PLUGIN registered: &lt;_pytest.config.Config object at 0x7f638a1dcd30&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;_pytest.config.PytestPluginManager object at 0x7f957ce0b198&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;_pytest.config.Config object at 0x7f957afb1dd8&gt;&apos;
     and: &quot;PLUGIN registered: &lt;module &apos;_pytest.mark&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/mark.py&apos;&gt;&quot;
     and: &quot;PLUGIN registered: &lt;module &apos;_pytest.main&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/main.py&apos;&gt;&quot;
     and: &quot;PLUGIN registered: &lt;module &apos;_pytest.terminal&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/terminal.py&apos;&gt;&quot;
@@ -463,23 +465,24 @@ collected 0 items
     and: &quot;PLUGIN registered: &lt;module &apos;pytest_logging.plugin&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_logging/plugin.py&apos;&gt;&quot;
     and: &quot;PLUGIN registered: &lt;module &apos;pytest_html.plugin&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_html/plugin.py&apos;&gt;&quot;
     and: &quot;PLUGIN registered: &lt;module &apos;pytest_harvest.plugin&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_harvest/plugin.py&apos;&gt;&quot;
-    and: &apos;PLUGIN registered: &lt;_pytest.capture.CaptureManager object at 0x7f6389119eb8&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;_pytest.capture.CaptureManager object at 0x7f957a0390b8&gt;&apos;
     and: &quot;PLUGIN registered: &lt;Session &apos;test_ensure_pytest_pilot_installed0&apos;&gt;&quot;
-    and: &apos;PLUGIN registered: &lt;_pytest.cacheprovider.LFPlugin object at 0x7f638911fa20&gt;&apos;
-    and: &apos;PLUGIN registered: &lt;_pytest.terminal.TerminalReporter object at 0x7f63890f52e8&gt;&apos;
-    and: &apos;PLUGIN registered: &lt;_pytest.python.FixtureManager object at 0x7f63890f5d68&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;_pytest.cacheprovider.LFPlugin object at 0x7f957a042908&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;_pytest.terminal.TerminalReporter object at 0x7f957a020438&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;pytest_harvest.plugin.DefaultXDistHarvester object at 0x7f957a020c88&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;_pytest.python.FixtureManager object at 0x7f957a020eb8&gt;&apos;
     and: &apos;============================= test session starts ==============================&apos;
     and: &apos;platform linux -- Python 3.5.6, pytest-2.9.2, py-1.8.1, pluggy-0.3.1&apos;
     and: &apos;using: pytest-2.9.2 pylib-1.8.1&apos;
     and: &apos;setuptools registered plugins:&apos;
 fnmatch: &apos;*pytest-pilot-*&apos;
-   with: &apos;  pytest-pilot-0.1.1.dev2+ga610aab at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_pilot/plugin.py&apos;
+   with: &apos;  pytest-pilot-0.1.1.dev5+gc35a194 at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_pilot/plugin.py&apos;
 </div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">pytest_pilot/tests/test_main.py::test_basic_markers_help</td>
-          <td class="col-duration">0.29</td>
+          <td class="col-duration">0.25</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="5">
@@ -514,7 +517,7 @@ exact match: &apos;@pytest.mark.b(value): mark test to run only when command opt
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">pytest_pilot/tests/test_main.py::test_basic_options_help</td>
-          <td class="col-duration">0.29</td>
+          <td class="col-duration">0.26</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="5">
@@ -767,7 +770,7 @@ exact match: &apos;                        option, tests marked with @envid will
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">pytest_pilot/tests/test_main.py::test_basic_run_envquery</td>
-          <td class="col-duration">0.28</td>
+          <td class="col-duration">0.26</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="5">
@@ -778,7 +781,7 @@ running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/mi
 platform linux -- Python 3.5.6, pytest-2.9.2, py-1.8.1, pluggy-0.3.1 -- /home/travis/miniconda/envs/test-environment/bin/python
 cachedir: .cache
 rootdir: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_envquery0, inifile: 
-plugins: pilot-0.1.1.dev2+ga610aab, logging-2015.11.4, html-1.9.0, harvest-1.7.4
+plugins: pilot-0.1.1.dev5+gc35a194, logging-2015.11.4, html-1.9.0, harvest-1.9.1
 collecting ... collected 5 items
 
 test_basic_run_envquery.py::test_yellow_noenv PASSED
@@ -794,7 +797,7 @@ finalizing test dir &lt;Testdir local(&apos;/tmp/pytest-of-travis/pytest-0/testd
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">pytest_pilot/tests/test_main.py::test_basic_run_flavourquery</td>
-          <td class="col-duration">0.31</td>
+          <td class="col-duration">0.27</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="5">
@@ -805,7 +808,7 @@ running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/mi
 platform linux -- Python 3.5.6, pytest-2.9.2, py-1.8.1, pluggy-0.3.1 -- /home/travis/miniconda/envs/test-environment/bin/python
 cachedir: .cache
 rootdir: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_flavourquery0, inifile: 
-plugins: pilot-0.1.1.dev2+ga610aab, logging-2015.11.4, html-1.9.0, harvest-1.7.4
+plugins: pilot-0.1.1.dev5+gc35a194, logging-2015.11.4, html-1.9.0, harvest-1.9.1
 collecting ... collected 5 items
 
 test_basic_run_flavourquery.py::test_yellow_noenv SKIPPED
@@ -821,7 +824,7 @@ finalizing test dir &lt;Testdir local(&apos;/tmp/pytest-of-travis/pytest-0/testd
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">pytest_pilot/tests/test_main.py::test_nameconflict</td>
-          <td class="col-duration">0.27</td>
+          <td class="col-duration">0.23</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="5">
