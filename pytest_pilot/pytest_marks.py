@@ -257,6 +257,7 @@ class EasyMarker(object):
             print('%s checking if item should be skipped according to options' % logprefix)
 
         if query is None:
+            # usage in pytest
             try:
                 query = item.config.getoption(self.cmdoption_long[2:])
                 if debug_mode:
