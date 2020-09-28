@@ -41,16 +41,15 @@ class EasyMarker(object):
     _all_markers = []
 
     def __init__(self,
-                 marker_id,                         # type: str
-                 full_name=None,                    # type: str
-                 has_arg=True,                      # type: bool
-                 allowed_values=None,               # type: Iterable[Any]
-                 cmdoption_short=None,              # type: str
-                 cmdoption_long=None,               # type: str
-                 not_filtering_skips_marked=False,  # type: bool
-                 filtering_skips_unmarked=False,    # type: bool
-                 cmdhelp=None,                      # type: str
-                 markhelp=None                      # type: str
+                 marker_id,             # type: str
+                 full_name=None,        # type: str
+                 has_arg=True,          # type: bool
+                 allowed_values=None,   # type: Iterable[Any]
+                 cmdoption_short=None,  # type: str
+                 cmdoption_long=None,   # type: str
+                 mode='extender',       # type: str
+                 cmdhelp=None,          # type: str
+                 markhelp=None,         # type: str
                  ):
         """
         Constructor
@@ -74,15 +73,49 @@ class EasyMarker(object):
             name collisions.
         :param cmdoption_long: the id to use for the "long" command option (for example providing `'env'` or `'--env'`
             will result in the option `'--env'`). `None` (default) will use `marker_id` for the long command option.
-        :param not_filtering_skips_marked: if this is `False` (default), a tests *marked* with this marker *will* run
-            when the user calls pytest *without* the associated commandline filtering option. If it is `True` it will be
-            skipped. In other words if this is `True`, marked tests can only run when the option is explicitly used.
-        :param filtering_skips_unmarked: if this is `False` (default), a test *not marked* with this marker *will* run
-            when the user calls pytest *with* the associated commandline filtering option. If this is `True` it will be
-            skipped. In other words if this is `True`, unmarked tests can only run when the option is *not* used.
+        :param mode: a string indicating the working mode of this mark and the associated filter option. Four modes
+            are supported:
+             - 'silos': When the option is inactive, only non-marked tests are run. When the option is active, only
+               relevant marked tests run. There is no test in common between these "silos"
+             - 'extender' (default): When the option is inactive, only non-marked tests are run, this is the "base" set
+               of tests. When the option is active, it adds the relevant marked tests to the base set.
+             - 'hard_filter': When the option is inactive, all tests run. When the option is active, only the relevant
+               marked tests run.
+             - 'soft_filter': When the option is inactive, all tests run. When the option is active, all non-marked
+               tests continue to run, but among marked tests only the relevant ones run.
         :param cmdhelp: the help message displayed when `pytest --help` is called
         :param markhelp: the help message displayed when `pytest --markers` is called
         """
+
+        # mode validation
+        if mode == "silos":
+            # When the option is inactive, only non-marked tests are run.
+            not_filtering_skips_marked = True
+            # When the option is active, only relevant marked tests run. There is no test in common between these silos
+            filtering_skips_unmarked = True
+        elif mode == "extender":
+            # When the option is inactive, only non-marked tests are run, this is the "base" set of tests.
+            not_filtering_skips_marked = True
+            # When the option is active, it adds the relevant marked tests to the base set.
+            filtering_skips_unmarked = False
+        elif mode == "hard_filter":
+            # When the option is inactive, all tests run.
+            not_filtering_skips_marked = False
+            # When the option is active, only the relevant marked tests run.
+            filtering_skips_unmarked = True
+        elif mode == "soft_filter":
+            # When the option is inactive, all tests run.
+            not_filtering_skips_marked = False
+            # When the option is active, all non-marked tests continue to run, but among marked tests only
+            # the relevant ones run.
+            filtering_skips_unmarked = False
+            if not self.has_arg:
+                raise ValueError("It does not make sense to set `mode` to `'soft_filter'` when the marker has "
+                                 "no arguments.")
+        else:
+            raise ValueError("Invalid 'mode' %r. Only 'silos', 'extender', 'hard_filter' or 'soft_filter' are "
+                             "supported." % mode)
+
         # identifiers
         if marker_id is None:
             raise ValueError("a non-None `marker_id` is mandatory")
@@ -119,9 +152,6 @@ class EasyMarker(object):
         # query filters
         self.not_filtering_skips_marked = not_filtering_skips_marked
         self.filtering_skips_unmarked = filtering_skips_unmarked
-        if self.filtering_skips_unmarked and self.not_filtering_skips_marked and not self.has_arg:
-            raise ValueError("It does not make sense to set both `filtering_skips_unmarked` and "
-                             "`not_filtering_skips_marked` to `True` when the marker has no arguments.")
 
         # help messages
         self.cmdhelp = cmdhelp if cmdhelp is not None else self._get_default_cmdhelp()
