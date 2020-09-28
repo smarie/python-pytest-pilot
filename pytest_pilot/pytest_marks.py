@@ -179,13 +179,13 @@ class EasyMarker(object):
                 first_part = "run tests marked as requiring %s NAME (marked with @%s(NAME)), as well as tests not " \
                              "marked with @%s." % (self.full_name, self.marker_id, self.marker_id)
         else:
-            return "only run tests marked as %s (marked with @%s)." % (self.full_name, self.marker_id)
+            first_part = "only run tests marked as %s (marked with @%s)." % (self.full_name, self.marker_id)
 
         if self.not_filtering_skips_marked:
             return first_part + " Important: if you call `pytest` without this option, tests marked with @%s will " \
                                 "*not* be run." % self.marker_id
         else:
-            return first_part + " If you call `pytest` without this option, tests marked with @%s will *all* be run" \
+            return first_part + " If you call `pytest` without this option, tests marked with @%s will *all* be run." \
                                 "" % self.marker_id
 
     @property
@@ -200,22 +200,21 @@ class EasyMarker(object):
 
     def _get_default_markhelp(self):
         if self.has_arg:
+            suffix = " <value> should be one of %r." % (self.allowed_values,) if self.allowed_values is not None else ""
             if self.not_filtering_skips_marked:
-                suffix = "."
+                return "%s(value): mark test to run *only* when %s (%r option) is set to <value>.%s" \
+                       % (self.marker_id, self.cmdoption_both, self.full_name, suffix)
             else:
-                suffix = ", or if the option is not used at all."
-
-            return "%s(value): mark test to run only when command option %s is used to set %s to <value>%s" \
-                   % (self.marker_id, self.full_name, self.cmdoption_both, suffix)
-
+                return "%s(value): mark test to run *both* when %s (%r option) is set to <value> " \
+                       "and if %s is not set.%s" \
+                       % (self.marker_id, self.cmdoption_both, self.full_name, self.cmdoption_both, suffix)
         else:
             if self.not_filtering_skips_marked:
-                word = "only"
+                return "%s: mark test to run *only* when %s (%r option) is set." \
+                       % (self.marker_id, self.cmdoption_both, self.full_name)
             else:
-                word = "even"
-
-            return "%s: mark test to run %s when command option %s is used." \
-                   % (self.marker_id, word, self.cmdoption_both)
+                return "%s: mark test to run *both* when %s (%r option) is set and when it is not set." \
+                       % (self.marker_id, self.cmdoption_both, self.full_name)
 
     def __call__(self, *args, **kwargs):
         """
