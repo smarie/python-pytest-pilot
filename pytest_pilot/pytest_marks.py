@@ -252,7 +252,10 @@ class EasyMarker(object):
             else:
                 # single value:
                 # TODO self.used_values.add(mark_value[0]) but sometimes it received a MarkDecorator
-                pass
+                if self.allowed_values is not None:
+                    if mark_value[0] not in self.allowed_values:
+                        raise ValueError("%r is not allowed for marker %r. Allowed values are %r"
+                                         % (mark_value[0], self.marker_id, self.allowed_values))
 
         # create it
         with warnings.catch_warnings():
