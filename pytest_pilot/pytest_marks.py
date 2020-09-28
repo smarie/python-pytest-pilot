@@ -227,7 +227,10 @@ class EasyMarker(object):
         :param kwargs:
         :return:
         """
-        return self.get_mark_decorator(*args, **kwargs)
+        if not self.has_arg and len(args) == 1 and len(kwargs) == 0 and isfunction(args[0]):
+            return self.get_mark_decorator()(*args)
+        else:
+            return self.get_mark_decorator(*args, **kwargs)
 
     def get_mark_decorator(self, *mark_value):
         """
@@ -275,12 +278,12 @@ class EasyMarker(object):
 
     def read_marks(self, item):
         """
-        Helper function to retrieve all required environments
+        Helper function to retrieve all values marked if this marker accepts arguments
 
         :param item:
         :return:
         """
-        return [mark.args[0] for mark in itermarkers(item, name=self.marker_id)]
+        return [mark.args[0] if self.has_arg else True for mark in itermarkers(item, name=self.marker_id)]
 
     def skip_if_not_compliant(self, item, query=None):
         """
@@ -310,14 +313,19 @@ class EasyMarker(object):
                 pass
 
         required_marks = self.read_marks(item)
+        no_query = query is None if self.has_arg else query is False
 
-        if query is None:
+        if no_query:
             # -- we run without filter
             if self.not_filtering_skips_marked:
                 # skip all tests that have marks
                 if len(required_marks) > 0:
-                    pytest.skip("test requires '%s' in %r. Please use the '%s' command option to activate one of these."
-                                % (self.marker_id, required_marks, self.cmdoption_long))
+                    if self.has_arg:
+                        pytest.skip("test requires '%s' in %r. Please use the '%s' command option to activate it."
+                                    % (self.marker_id, required_marks, self.cmdoption_long))
+                    else:
+                        pytest.skip("test requires '%s'. Please use the '%s' command option to activate it."
+                                    % (self.marker_id, self.cmdoption_long))
                 else:
                     if info_mode:
                         print("%s item has no marks and option '%s' was not used, item can run"
@@ -330,10 +338,13 @@ class EasyMarker(object):
             # -- we run with a filter
             if len(required_marks) > 0:
                 # -- the test has marks: apply the filter
-                if query not in required_marks:
+                if self.has_arg and query not in required_marks:
                     pytest.skip("This test is marked to only runs if '%s' is in %r. Currently it is set to '%s' (from "
                                 "the '%s' command option)" % (self.marker_id, required_marks, query,
                                                               self.cmdoption_long))
+                elif not self.has_arg and len(required_marks) == 0:
+                    pytest.skip("This test is marked to only runs if '%s' is set. Currently it is not set (no "
+                                "'%s' command option)" % (self.marker_id, self.cmdoption_long))
                 else:
                     # match: the test is meant to be run on the required environment
                     if info_mode:
