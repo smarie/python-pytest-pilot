@@ -1,5 +1,7 @@
-from contextlib import contextmanager
+from distutils.version import LooseVersion
 from os.path import dirname, join, pardir
+
+import pytest
 from textwrap import dedent
 
 CASES_DIR = join(dirname(__file__), pardir, 'test_cases')
@@ -23,105 +25,110 @@ def make_file(testdir, case_folder, file_name):
         dest.write(contents)
 
 
-@contextmanager
-def finalizer(tdir):
-    try:
-        print("using testdir %s" % tdir)
-        yield
-    finally:
-        # actually this is probably not needed :)
-        print("finalizing test dir %s" % tdir)
-        tdir.finalize()
+# @pytest.fixture
+# def mytestdir(testdir):
+#     print("using testdir %s" % testdir)
+#     yield testdir
+#     print("finalizing test dir %s" % testdir)
+#     testdir.finalize()
 
 
 def test_ensure_pytest_pilot_installed(testdir):
     """Ensures that pytest-pilot is installed."""
-    result = testdir.runpytest(testdir.tmpdir, '--trace-config')
+    result = testdir.runpytest('--trace-config')
+    if result.ret != 5:
+        print(result.stderr.str())
+    assert result.ret == 5
     expected_lines = ["*pytest-pilot-*"]
     result.stdout.fnmatch_lines(expected_lines)
 
 
 def test_basic_markers_help(testdir):
-    """executes the test in ../test_cases/basic/ folder """
+    """Creates two markers and check that pytest --markers returns correct help on those """
 
-    with finalizer(testdir):
-        testdir.makeconftest(dedent("""
-                                    from pytest_pilot import EasyMarker
-                    
-                                    a_marker = EasyMarker('a', allowed_values=('red', 'yellow'))
-                                    b_marker = EasyMarker('b', 'bbb', not_filtering_skips_marked=True)
-                                    """))
+    testdir.makeconftest(dedent("""
+                                from pytest_pilot import EasyMarker
+                
+                                silos_marker = EasyMarker('silos', mode="silos")
+                                extender_marker = EasyMarker('extender', allowed_values=('red', 'yellow'))
+                                hardfilter_marker = EasyMarker('hard_filter', full_name='bbb', mode="hard_filter")
+                                softfilter_marker = EasyMarker('soft_filter', has_arg=False, mode="soft_filter")
+                                """))
 
-        # assert that markers descriptions appear correctly
-        mresult = testdir.runpytest(testdir.tmpdir, '--markers')
-        # print(result.stdout)
-        expected_lines = ["@pytest.mark.a(value): mark test to run only when command option a is used to set "
-                          "--a to <value>, or if the option is not used at all.",
-                          "@pytest.mark.b(value): mark test to run only when command option bbb is used to "
-                          "set --b to <value>."]
-        mresult.stdout.fnmatch_lines(expected_lines)
+    # assert that markers descriptions appear correctly
+    result = testdir.runpytest('--markers')
+    if result.ret != 0:
+        print(result.stderr.str())
+    assert result.ret == 0
+    expected_lines = """
+@pytest.mark.silos(value): mark test to run *only* when --silos ('silos' option) is set to <value>.
+@pytest.mark.extender(value): mark test to run *only* when --extender ('extender' option) is set to <value>. <value> should be one of ('red', 'yellow').
+@pytest.mark.hard_filter(value): mark test to run *both* when --hard_filter ('bbb' option) is set to <value> and if --hard_filter is not set.
+@pytest.mark.soft_filter: mark test to run *both* when --soft_filter ('soft_filter' option) is set and when it is not set.
+""".strip().splitlines(False)
+    result.stdout.fnmatch_lines(expected_lines)
 
-        # Note: we cannot run it another time here: ValueError: option names {'--a'} already added
-        # that's why we do it again in the next test
-        # mresult = testdir.runpytest(testdir.tmpdir, '--help')
+    # Note: we cannot run it another time here: ValueError: option names {'--a'} already added
+    # that's why we do it again in the next test
+    # mresult = testdir.runpytest(testdir.tmpdir, '--help')
 
 
 def test_basic_options_help(testdir):
     """executes the test in ../test_cases/basic/ folder """
 
-    with finalizer(testdir):
-        # basicdir = testdir.mkdir('basic2')
-        case_folder = join(CASES_DIR, 'basic')
+    # basicdir = testdir.mkdir('basic2')
+    case_folder = join(CASES_DIR, 'basic')
 
-        testdir.makeconftest(get_conftest(case_folder))
-        testdir.makepyfile(get_file(case_folder, 'test_basic.py'))
-        make_file(testdir, case_folder, '__init__.py')  # required for the "import from ." to work
+    testdir.makeconftest(get_conftest(case_folder))
+    testdir.makepyfile(get_file(case_folder, 'test_basic.py'))
+    make_file(testdir, case_folder, '__init__.py')  # required for the "import from ." to work
 
-        # 2) assert
-        result = testdir.runpytest(testdir.tmpdir, '--help')
+    # 2) assert
+    result = testdir.runpytest(testdir.tmpdir, '--help')
 
-        expected_lines = """custom options:
-  --flavour=NAME        run tests marked as requiring flavour NAME (marked
-                        with @flavour(NAME)), as well as tests not marked with
-                        @flavour. If you call `pytest` without this option,
-                        tests marked with @flavour will *all* be run
-  --envid=NAME          run tests marked as requiring environment NAME (marked
-                        with @envid(NAME)), as well as tests not marked with
-                        @envid. Important: if you call `pytest` without this
-                        option, tests marked with @envid will *not* be run.""".splitlines(False)
-        result.stdout.fnmatch_lines(expected_lines)
-
-
-def test_basic_run_envquery(testdir):
-    """executes the test in ../test_cases/basic/ folder """
-
-    with finalizer(testdir):
-        # basicdir = testdir.mkdir('basic')
-        case_folder = join(CASES_DIR, 'basic')
-        testdir.makeconftest(get_conftest(case_folder))
-        testdir.makepyfile(get_file(case_folder, 'test_basic.py'))
-        make_file(testdir, case_folder, '__init__.py')  # required for the "import from ." to work
-
-        # 2) run
-        result = testdir.runpytest(testdir.tmpdir, '-v', '-s', '--envid', 'env1')
-        # the only test skipped should be the one with env2
-        result.assert_outcomes(passed=4, skipped=1)
+    if LooseVersion(pytest.__version__) < "3.0.0":
+        # note: in pytest 2 the help is formatted a bit differently
+        expected_lines = ["  --silo                only run tests marked as silo (marked with @silo)."]
+    else:
+        expected_lines = """  --silo                only run tests marked as silo (marked with @silo).
+                            Important: if you call `pytest` without this option,
+                            tests marked with @silo will *not* be run.
+      --hf                  only run tests marked as hf (marked with @hf). If you
+                            call `pytest` without this option, tests marked with @hf
+                            will *all* be run.
+      --envid=NAME          run tests marked as requiring environment NAME (marked
+                            with @envid(NAME)), as well as tests not marked with
+                            @envid. Important: if you call `pytest` without this
+                            option, tests marked with @envid will *not* be run.
+      --flavour=NAME        run tests marked as requiring flavour NAME (marked with
+                            @flavour(NAME)), as well as tests not marked with
+                            @flavour. If you call `pytest` without this option,
+                            tests marked with @flavour will *all* be run.""".splitlines(False)
+    result.stdout.fnmatch_lines(expected_lines)
 
 
-def test_basic_run_flavourquery(testdir):
-    """executes the test in ../test_cases/basic/ folder """
+@pytest.mark.parametrize("cmdoptions,results", [
+    (('--silo',), dict(passed=1, skipped=6)),
+    (('--hf',), dict(passed=2, skipped=5)),
+    (('--hf', '--flavour=red'), dict(passed=1, skipped=6)),
+    (('--hf', '--flavour=yellow'), dict(passed=2, skipped=5)),
+    (('--envid', 'foo'), dict(passed=4, skipped=3)),
+    (('--envid=env1',), dict(passed=5, skipped=2)),
+    (('--flavour=red', '--envid=env2'), dict(passed=4, skipped=3))
+])
+def test_basic_run_queries(testdir, cmdoptions, results):
+    """executes the test in ../test_cases/basic/ folder with option --silo"""
 
-    with finalizer(testdir):
-        # basicdir = testdir.mkdir('basic')
-        case_folder = join(CASES_DIR, 'basic')
-        testdir.makeconftest(get_conftest(case_folder))
-        testdir.makepyfile(get_file(case_folder, 'test_basic.py'))
-        make_file(testdir, case_folder, '__init__.py')  # required for the "import from ." to work
+    # basicdir = testdir.mkdir('basic')
+    case_folder = join(CASES_DIR, 'basic')
+    testdir.makeconftest(get_conftest(case_folder))
+    testdir.makepyfile(get_file(case_folder, 'test_basic.py'))
+    make_file(testdir, case_folder, '__init__.py')  # required for the "import from ." to work
 
-        # 2) run
-        result = testdir.runpytest(testdir.tmpdir, '-v', '-s', '--flavour', 'red', '--envid', 'env2')
-        #
-        result.assert_outcomes(passed=3, skipped=2)
+    # 2) run
+    result = testdir.runpytest(testdir.tmpdir, '-v', '-s', *cmdoptions)
+    # the only test skipped should be the one with env2
+    result.assert_outcomes(**results)
 
 
 def test_nameconflict(testdir):

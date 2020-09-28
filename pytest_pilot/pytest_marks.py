@@ -125,7 +125,8 @@ class EasyMarker(object):
 
         # arguments
         self.has_arg = has_arg
-        self.allowed_values = set(allowed_values) if allowed_values is not None else None
+        # note: we do not use a set to store the allowed values because we want to preserve the order
+        self.allowed_values = tuple(allowed_values) if allowed_values is not None else None
         if not self.has_arg and self.allowed_values is not None:
             raise ValueError("`allowed_values` should not be provided if `has_arg` is `False`, as the marker does not "
                              "accept any arguments")

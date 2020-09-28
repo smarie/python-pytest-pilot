@@ -1,7 +1,20 @@
-from .conftest import flavourmarker, envmarker
+import pytest
+
+from .conftest import flavourmarker, envmarker, silomarker, hardfilter
+
+
+@silomarker
+def test_silo():
+    pass
+
+
+@hardfilter
+def test_hf():
+    pass
 
 
 @flavourmarker('yellow')
+@hardfilter
 def test_yellow_noenv():
     pass
 
@@ -23,4 +36,7 @@ def test_red_noenv():
 
 
 def test_nomark():
-    pass
+    """ we use this opportunity to test that this raises a value error"""
+    with pytest.raises(ValueError):
+        flavourmarker('pink')
+
