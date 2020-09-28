@@ -1,6 +1,11 @@
-from enum import Enum
+from inspect import isfunction
+import warnings
 
 import pytest
+try:
+    from _pytest.warning_types import PytestUnknownMarkWarning
+except ImportError:
+    PytestUnknownMarkWarning = UserWarning
 
 try:  # python 3.5+
     from typing import Set, Any, List, Iterable
@@ -220,7 +225,9 @@ class EasyMarker(object):
                 pass
 
         # create it
-        return getattr(pytest.mark, self.marker_id)(*mark_value)
+        with warnings.catch_warnings():
+            warnings.filterwarnings('ignore', category=PytestUnknownMarkWarning)
+            return getattr(pytest.mark, self.marker_id)(*mark_value)
 
     def apply_to_param_value(self, param_value, *args):
         """
