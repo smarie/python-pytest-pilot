@@ -158,7 +158,7 @@ def test_nameconflict_short(testdir):
                                 """))
 
     result = testdir.runpytest(testdir.tmpdir)
-    expected_lines = "ValueError: Error registering <Pytest marker 'a' with CLI option '-a/--a' " \
-                     "and decorator '@pytest.mark.a(<a>)'>: a command with this long or short name already " \
-                     "exists. Caught: ValueError('lowercase shortoptions reserved')"
-    result.stderr.fnmatch_lines(expected_lines)
+    expected_str = "ValueError: Error registering <Pytest marker 'a' with CLI option '-a/--a' " \
+                   "and decorator '@pytest.mark.a(<a>)'>: a command with this long or short name already " \
+                   "exists. Caught: ValueError('lowercase shortoptions reserved'"
+    assert expected_str in '\n'.join(result.stderr.lines)
