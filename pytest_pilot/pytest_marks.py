@@ -316,47 +316,57 @@ class EasyMarker(object):
         no_query = query is None if self.has_arg else query is False
 
         if no_query:
-            # -- we run without filter
+            # /1/ we run without CLI option filter
             if self.not_filtering_skips_marked:
-                # skip all tests that have marks
+                # (a) skip all tests that have marks
                 if len(required_marks) > 0:
                     if self.has_arg:
-                        pytest.skip("test requires '%s' in %r. Please use the '%s' command option to activate it."
-                                    % (self.marker_id, required_marks, self.cmdoption_long))
+                        if len(required_marks) == 1:
+                            pytest.skip("This test requires %r=%r. Run `pytest %s=%s` to activate it."
+                                        % (self.marker_id, required_marks[0], self.cmdoption_long, required_marks[0]))
+                        else:
+                            pytest.skip("This test requires %r in %r. Run `pytest %s=<arg>` to activate it."
+                                        % (self.marker_id, required_marks, self.cmdoption_long))
                     else:
-                        pytest.skip("test requires '%s'. Please use the '%s' command option to activate it."
+                        pytest.skip("This test requires %r. Run `pytest %s` to activate it."
                                     % (self.marker_id, self.cmdoption_long))
                 else:
                     if info_mode:
                         print("%s item has no marks and option '%s' was not used, item can run"
                               % (logprefix, self.cmdoption_long))
             else:
+                # (b) keep all tests
                 if info_mode:
                     print("%s option '%s' was not used, all items can run" % (logprefix, self.cmdoption_long))
 
         else:
-            # -- we run with a filter
+            # /2/ we run with a CLI option filter, for example `pytest --envid=a` or `pytest --blue`.
             if len(required_marks) > 0:
-                # -- the test has marks: apply the filter
+                # -- current test has at least 1 mark of this type: if the mark has an arg, check that it matches query.
                 if self.has_arg and query not in required_marks:
-                    pytest.skip("This test is marked to only runs if '%s' is in %r. Currently it is set to '%s' (from "
-                                "the '%s' command option)" % (self.marker_id, required_marks, query,
-                                                              self.cmdoption_long))
-                elif not self.has_arg and len(required_marks) == 0:
-                    pytest.skip("This test is marked to only runs if '%s' is set. Currently it is not set (no "
-                                "'%s' command option)" % (self.marker_id, self.cmdoption_long))
+                    if len(required_marks) == 1:
+                        pytest.skip("This test requires %r=%r. Currently `%s=%s` so it is skipped."
+                                    % (self.marker_id, required_marks[0], self.cmdoption_long, query))
+                    else:
+                        pytest.skip("This test requires %r in %r. Currently `%s=%s` so it is skipped."
+                                    % (self.marker_id, required_marks[0], self.cmdoption_long, query))
                 else:
-                    # match: the test is meant to be run on the required environment
+                    # match: the test has the right mark
                     if info_mode:
-                        print("%s item marks %r contain query filter '%s', it can run"
+                        print("%s item marks %r matches query filter '%s', it can run"
                               % (logprefix, required_marks, query))
             else:
-                # -- the test has no marks
+                # -- the test does not have this mark.
                 if self.filtering_skips_unmarked:
-                    # skip all tests that have no marks
-                    pytest.skip("This test does not have marker '%s'. Currently it is explicitly required with value"
-                                " '%s' (from the '%s' command option)" % (self.marker_id, query, self.cmdoption_long))
+                    # (a) skip all tests that have no marks
+                    if self.has_arg:
+                        pytest.skip("This test does not have mark '%s', and pytest was run with `%s=%s` so it is "
+                                    "skipped." % (self.marker_id, self.cmdoption_long, query))
+                    else:
+                        pytest.skip("This test does not have mark '%s', and pytest was run with `%s` so it is "
+                                    "skipped." % (self.marker_id, self.cmdoption_long))
                 else:
+                    # (b) keep all tests that have no marks
                     if info_mode:
                         print("%s item has no marks, it can run" % (logprefix, ))
 

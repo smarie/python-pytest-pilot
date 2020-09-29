@@ -31,7 +31,7 @@ def pytest_addhooks(pluginmanager):
 all_markers = None
 
 
-# Note: we can not use the pytest_addoption(parser) hook because it is called beforereading the users' conftest.py
+# Note: we can not use the pytest_addoption(parser) hook because it is called before reading the users' conftest.py
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_load_initial_conftests(early_config, parser, args):
     """
