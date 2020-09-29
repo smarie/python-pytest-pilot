@@ -202,9 +202,38 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        API reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
     <a href="./" title="API reference" class="md-nav__link md-nav__link--active">
       API reference
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#easymarker" class="md-nav__link">
+    EasyMarker
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -238,6 +267,21 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#easymarker" class="md-nav__link">
+    EasyMarker
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -255,7 +299,44 @@
                 
                 <h1 id="api-reference">API reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h1>
 <p>In general, using <code>help(symbol)</code> is the recommended way to get the latest documentation. In addition, this page provides an overview of the various elements in this package.</p>
-<p><strong>TODO</strong></p>
+<h3 id="easymarker"><code>EasyMarker</code><a class="headerlink" href="#easymarker" title="Permanent link">&para;</a></h3>
+<p>A helper class to create pytest marks.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">EasyMarker</span><span class="p">(</span><span class="n">marker_id</span><span class="p">,</span>             <span class="c1"># type: str</span>
+           <span class="n">mode</span><span class="p">,</span>                  <span class="c1"># type: str</span>
+           <span class="n">full_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>        <span class="c1"># type: str</span>
+           <span class="n">has_arg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>          <span class="c1"># type: bool</span>
+           <span class="n">allowed_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>   <span class="c1"># type: Iterable[Any]</span>
+           <span class="n">cmdoption_short</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: str</span>
+           <span class="n">cmdoption_long</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>   <span class="c1"># type: str</span>
+           <span class="n">cmdhelp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>          <span class="c1"># type: str</span>
+           <span class="n">markhelp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>         <span class="c1"># type: str</span>
+           <span class="p">)</span>
+</code></pre></div>
+
+
+<p>Creates a pair of marker + commandline option for pytest.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>marker_id</code>: the name of the pytest mark. Applying this marker with <code>@marker(arg)</code> will be equivalent to applying @pytest.mark.<marker_id>(arg)</li>
+<li>
+<p><code>mode</code>: a mandatory string indicating the working mode of this mark and the associated filter option. Four modes are supported:</p>
+<ul>
+<li>'silos': When the option is inactive, only non-marked tests are run. When the option is active, only relevant marked tests run. There is no test in common between these "silos"</li>
+<li>'extender': When the option is inactive, only non-marked tests are run, this is the "base" set of tests. When the option is active, it adds the relevant marked tests to the base set.</li>
+<li>'hard_filter': When the option is inactive, all tests run. When the option is active, only the relevant marked tests run.</li>
+<li>'soft_filter': When the option is inactive, all tests run. When the option is active, all non-marked tests continue to run, but among marked tests only the relevant ones run.</li>
+</ul>
+</li>
+<li>
+<p><code>full_name</code>: the full name of the marker, to be used in help texts. If <code>None</code> (default), it defaults to <code>marker_id</code>.</p>
+</li>
+<li><code>has_arg</code>: if this is <code>True</code> (default), the marker has a single argument and the filtering commandline option accepts an argument too. For example a <code>colormarker</code> with id <code>color</code> will accept an argument describing which color: <code>@colormarker('yellow')</code>. If this is <code>False</code>, the marker has no argument and the filtering commandline option is a flag with no arguments too. For example a <code>smokemarker</code> with id <code>smoke</code>: <code>@smokemarker</code>.</li>
+<li><code>allowed_values</code>: a predefined set of values that can be used for this marker. Applying the mark with another value as argument will result in a <code>ValueError</code>being raised. <code>None</code> (default) will allow users to apply this mark with any value. Note that this can only be set if <code>has_arg</code>is <code>True</code></li>
+<li><code>cmdoption_short</code>: the id to use for the "short" command option (for example providing <code>'E'</code> or <code>'-E'</code> will result in  the option <code>'-E'</code>). <code>None</code> (default) will <em>not</em> create a "short" command option, to avoid name collisions.</li>
+<li><code>cmdoption_long</code>: the id to use for the "long" command option (for example providing <code>'env'</code> or <code>'--env'</code> will result in the option <code>'--env'</code>). <code>None</code> (default) will use <code>marker_id</code> for the long command option.</li>
+<li><code>cmdhelp</code>: the help message displayed when <code>pytest --help</code> is called</li>
+<li><code>markhelp</code>: the help message displayed when <code>pytest --markers</code> is called</li>
+</ul>
                 
               
               
@@ -323,7 +404,7 @@
     </div>
     
       <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
-      <script src="../assets/javascripts/bundle.aa3f9871.min.js"></script><script id="__lang" type="application/json">{"search.result.none": "No matching documents", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.config.separator": "[\\s\\-]+", "search.result.one": "1 matching document", "search.config.lang": "en", "search.result.term.missing": "Missing", "search.config.pipeline": "trimmer, stopWordFilter", "clipboard.copied": "Copied to clipboard", "search.result.placeholder": "Type to start searching", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/bundle.aa3f9871.min.js"></script><script id="__lang" type="application/json">{"search.result.placeholder": "Type to start searching", "clipboard.copied": "Copied to clipboard", "search.config.separator": "[\\s\\-]+", "search.result.more.one": "1 more on this page", "search.result.one": "1 matching document", "search.result.more.other": "# more on this page", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.result.other": "# matching documents", "search.result.term.missing": "Missing", "clipboard.copy": "Copy to clipboard", "search.result.none": "No matching documents"}</script>
       
       <script>
         app = initialize({

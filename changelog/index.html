@@ -237,6 +237,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#050-better-api-implementation-and-documentation" class="md-nav__link">
+    0.5.0 - Better API, implementation and documentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#012-packaging-improvements" class="md-nav__link">
     0.1.2 - packaging improvements
   </a>
@@ -288,6 +295,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#050-better-api-implementation-and-documentation" class="md-nav__link">
+    0.5.0 - Better API, implementation and documentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#012-packaging-improvements" class="md-nav__link">
     0.1.2 - packaging improvements
   </a>
@@ -326,6 +340,15 @@
                 
                 
                 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
+<h3 id="050-better-api-implementation-and-documentation">0.5.0 - Better API, implementation and documentation<a class="headerlink" href="#050-better-api-implementation-and-documentation" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>EasyMarker</code> API improvements: now a single <code>mode</code> argument with four supported values (<code>'silos'</code>, <code>'extender'</code>, <code>hard_filter</code>, <code>soft_filter</code>) replaces the very unfriendly <code>filtering_skips_unmarked</code> and <code>not_filtering_skips_marked</code>. This argument is mandatory, so that users have to decide what they want as a resulting behaviour. Fixes <a href="https://github.com/smarie/python-pytest-pilot/issues/5">#5</a></li>
+<li>Markers without arguments (<code>EasyMarker(has_arg=False)</code>) now work correctly. Fixes <a href="https://github.com/smarie/python-pytest-pilot/issues/8">#8</a></li>
+<li>Short command option name (<code>EasyMarker(cmdoption_short=...)</code>) is now registered correctly. Fixed <a href="https://github.com/smarie/python-pytest-pilot/issues/9">#9</a></li>
+<li><code>allowed_values</code> are now correctly taken into account by <code>EasyMarker</code>. Fixes <a href="https://github.com/smarie/python-pytest-pilot/issues/1">#1</a> </li>
+<li>Removed annoying warning about marks registration. Fixes <a href="https://github.com/smarie/python-pytest-pilot/issues/6">#6</a></li>
+<li>Improved the various messages printed when using <code>pytest --markers</code> and <code>pytest --help</code>. In particular, using <code>--markers</code> shows the allowed values for a given marker.</li>
+</ul>
 <h3 id="012-packaging-improvements">0.1.2 - packaging improvements<a class="headerlink" href="#012-packaging-improvements" title="Permanent link">&para;</a></h3>
 <ul>
 <li>packaging improvements: set the "universal wheel" flag to 1, and cleaned up the <code>setup.py</code>. In particular removed dependency to <code>six</code> for setup and added <code>py.typed</code> file, as well as set the <code>zip_safe</code> flag to False. Removed tests folder from package. Fixes <a href="https://github.com/smarie/python-pytest-pilot/issues/4">#4</a></li>
@@ -389,7 +412,7 @@
     </div>
     
       <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
-      <script src="../assets/javascripts/bundle.aa3f9871.min.js"></script><script id="__lang" type="application/json">{"search.result.none": "No matching documents", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.config.separator": "[\\s\\-]+", "search.result.one": "1 matching document", "search.config.lang": "en", "search.result.term.missing": "Missing", "search.config.pipeline": "trimmer, stopWordFilter", "clipboard.copied": "Copied to clipboard", "search.result.placeholder": "Type to start searching", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/bundle.aa3f9871.min.js"></script><script id="__lang" type="application/json">{"search.result.placeholder": "Type to start searching", "clipboard.copied": "Copied to clipboard", "search.config.separator": "[\\s\\-]+", "search.result.more.one": "1 more on this page", "search.result.one": "1 matching document", "search.result.more.other": "# more on this page", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.result.other": "# matching documents", "search.result.term.missing": "Missing", "clipboard.copy": "Copy to clipboard", "search.result.none": "No matching documents"}</script>
       
       <script>
         app = initialize({
