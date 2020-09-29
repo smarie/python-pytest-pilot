@@ -49,10 +49,10 @@ def test_basic_markers_help(testdir):
     testdir.makeconftest(dedent("""
                                 from pytest_pilot import EasyMarker
                 
-                                silos_marker = EasyMarker('silos', mode="silos")
+                                silos_marker = EasyMarker('silos', has_arg=False, mode="silos")
                                 extender_marker = EasyMarker('extender', allowed_values=('red', 'yellow'))
                                 hardfilter_marker = EasyMarker('hard_filter', full_name='bbb', mode="hard_filter")
-                                softfilter_marker = EasyMarker('soft_filter', has_arg=False, mode="soft_filter")
+                                softfilter_marker = EasyMarker('soft_filter', mode="soft_filter")
                                 """))
 
     # assert that markers descriptions appear correctly
@@ -61,10 +61,10 @@ def test_basic_markers_help(testdir):
         print(result.stderr.str())
     assert result.ret == 0
     expected_lines = """
-@pytest.mark.silos(value): mark test to run *only* when --silos ('silos' option) is set to <value>.
+@pytest.mark.silos: mark test to run *only* when --silos ('silos' option) is set.
 @pytest.mark.extender(value): mark test to run *only* when --extender ('extender' option) is set to <value>. <value> should be one of ('red', 'yellow').
 @pytest.mark.hard_filter(value): mark test to run *both* when --hard_filter ('bbb' option) is set to <value> and if --hard_filter is not set.
-@pytest.mark.soft_filter: mark test to run *both* when --soft_filter ('soft_filter' option) is set and when it is not set.
+@pytest.mark.soft_filter(value): mark test to run *both* when --soft_filter ('soft_filter' option) is set to <value> and if --soft_filter is not set.
 """.strip().splitlines(False)
     result.stdout.fnmatch_lines(expected_lines)
 
@@ -91,19 +91,19 @@ def test_basic_options_help(testdir):
         expected_lines = ["  --silo                only run tests marked as silo (marked with @silo)."]
     else:
         expected_lines = """  --silo                only run tests marked as silo (marked with @silo).
-                            Important: if you call `pytest` without this option,
-                            tests marked with @silo will *not* be run.
-      --hf                  only run tests marked as hf (marked with @hf). If you
-                            call `pytest` without this option, tests marked with @hf
-                            will *all* be run.
-      --envid=NAME          run tests marked as requiring environment NAME (marked
-                            with @envid(NAME)), as well as tests not marked with
-                            @envid. Important: if you call `pytest` without this
-                            option, tests marked with @envid will *not* be run.
-      --flavour=NAME        run tests marked as requiring flavour NAME (marked with
-                            @flavour(NAME)), as well as tests not marked with
-                            @flavour. If you call `pytest` without this option,
-                            tests marked with @flavour will *all* be run.""".splitlines(False)
+                        Important: if you call `pytest` without this option,
+                        tests marked with @silo will *not* be run.
+  --hf                  only run tests marked as hf (marked with @hf). If you
+                        call `pytest` without this option, tests marked with @hf
+                        will *all* be run.
+  --envid=NAME          run tests marked as requiring environment NAME (marked
+                        with @envid(NAME)), as well as tests not marked with
+                        @envid. Important: if you call `pytest` without this
+                        option, tests marked with @envid will *not* be run.
+  --flavour=NAME        run tests marked as requiring flavour NAME (marked with
+                        @flavour(NAME)), as well as tests not marked with
+                        @flavour. If you call `pytest` without this option,
+                        tests marked with @flavour will *all* be run.""".splitlines(False)
     result.stdout.fnmatch_lines(expected_lines)
 
 
