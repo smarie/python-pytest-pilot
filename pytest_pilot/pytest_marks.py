@@ -109,7 +109,7 @@ class EasyMarker(object):
             # When the option is active, all non-marked tests continue to run, but among marked tests only
             # the relevant ones run.
             filtering_skips_unmarked = False
-            if not self.has_arg:
+            if not has_arg:
                 raise ValueError("It does not make sense to set `mode` to `'soft_filter'` when the marker has "
                                  "no arguments.")
         else:
