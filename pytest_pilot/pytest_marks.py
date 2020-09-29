@@ -29,8 +29,6 @@ def set_verbosity_level(pytest_config_verbositylevel):
 class EasyMarker(object):
     """
     A helper class to create pytest marks.
-    TODO
-     that can automatically be registered with a commandline filtering option.
     """
     __slots__ = 'marker_id', 'full_name', \
                 'has_arg', 'allowed_values', 'used_values', \
@@ -283,6 +281,7 @@ class EasyMarker(object):
         :param item:
         :return:
         """
+        # todo read item.callspec.params ?
         return [mark.args[0] if self.has_arg else True for mark in itermarkers(item, name=self.marker_id)]
 
     def skip_if_not_compliant(self, item, query=None):
