@@ -86,7 +86,7 @@ def test_basic_options_help(testdir):
     # 2) assert
     result = testdir.runpytest(testdir.tmpdir, '--help')
 
-    if LooseVersion(pytest.__version__) < "3.0.0":
+    if LooseVersion(pytest.__version__) < "5.0.0":
         # note: in pytest 2 the help is formatted a bit differently
         expected_lines = ["  --silo                only run tests marked as silo (marked with @silo)."]
     else:
