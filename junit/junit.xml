@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><testsuite errors="0" failures="0" name="pytest" skips="0" tests="11" time="2.967"><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="35" name="test_ensure_pytest_pilot_installed" time="0.2703089714050293"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_ensure_pytest_pilot_installed0/runpytest-0 --trace-config --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
+<?xml version="1.0" encoding="utf-8"?><testsuite errors="0" failures="0" name="pytest" skips="0" tests="11" time="3.085"><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="35" name="test_ensure_pytest_pilot_installed" time="0.27677488327026367"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_ensure_pytest_pilot_installed0/runpytest-0 --trace-config --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
      in: /tmp/pytest-of-travis/pytest-0/testdir/test_ensure_pytest_pilot_installed0
-PLUGIN registered: &lt;_pytest.config.PytestPluginManager object at 0x7fe127259208&gt;
-PLUGIN registered: &lt;_pytest.config.Config object at 0x7fe1253fdeb8&gt;
+PLUGIN registered: &lt;_pytest.config.PytestPluginManager object at 0x7f36f0677240&gt;
+PLUGIN registered: &lt;_pytest.config.Config object at 0x7f36ee81bef0&gt;
 PLUGIN registered: &lt;module &apos;_pytest.mark&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/mark.py&apos;&gt;
 PLUGIN registered: &lt;module &apos;_pytest.main&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/main.py&apos;&gt;
 PLUGIN registered: &lt;module &apos;_pytest.terminal&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/terminal.py&apos;&gt;
@@ -27,62 +27,62 @@ PLUGIN registered: &lt;module &apos;pytest_pilot.plugin&apos; from &apos;/home/t
 PLUGIN registered: &lt;module &apos;pytest_logging.plugin&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_logging/plugin.py&apos;&gt;
 PLUGIN registered: &lt;module &apos;pytest_html.plugin&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_html/plugin.py&apos;&gt;
 PLUGIN registered: &lt;module &apos;pytest_harvest.plugin&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_harvest/plugin.py&apos;&gt;
-PLUGIN registered: &lt;_pytest.capture.CaptureManager object at 0x7fe124483400&gt;
+PLUGIN registered: &lt;_pytest.capture.CaptureManager object at 0x7f36ed8a2ba8&gt;
 PLUGIN registered: &lt;Session &apos;test_ensure_pytest_pilot_installed0&apos;&gt;
-PLUGIN registered: &lt;_pytest.cacheprovider.LFPlugin object at 0x7fe124488c50&gt;
-PLUGIN registered: &lt;_pytest.terminal.TerminalReporter object at 0x7fe1244ba518&gt;
-PLUGIN registered: &lt;pytest_harvest.plugin.DefaultXDistHarvester object at 0x7fe1244baf28&gt;
-PLUGIN registered: &lt;_pytest.python.FixtureManager object at 0x7fe1244baf98&gt;
+PLUGIN registered: &lt;_pytest.cacheprovider.LFPlugin object at 0x7f36ed8aa400&gt;
+PLUGIN registered: &lt;_pytest.terminal.TerminalReporter object at 0x7f36ed88c5c0&gt;
+PLUGIN registered: &lt;pytest_harvest.plugin.DefaultXDistHarvester object at 0x7f36ed88cba8&gt;
+PLUGIN registered: &lt;_pytest.python.FixtureManager object at 0x7f36ed88ce48&gt;
 ============================= test session starts ==============================
 platform linux -- Python 3.5.6, pytest-2.9.2, py-1.9.0, pluggy-0.3.1
 using: pytest-2.9.2 pylib-1.9.0
 setuptools registered plugins:
-  pytest-pilot-0.1.3.dev9+g35e1e34 at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_pilot/plugin.py
+  pytest-pilot-0.1.3.dev11+gacc685e at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_pilot/plugin.py
   pytest-logging-2015.11.4 at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_logging/plugin.py
   pytest-html-1.9.0 at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_html/plugin.py
   pytest-harvest-1.9.3 at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_harvest/plugin.py
 active plugins:
-    capture             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/capture.py
-    140605001142792     : &lt;_pytest.config.PytestPluginManager object at 0x7fe127259208&gt;
-    pilot               : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_pilot/plugin.py
-    python              : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/python.py
-    main                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/main.py
-    funcmanage          : &lt;_pytest.python.FixtureManager object at 0x7fe1244baf98&gt;
-    runner              : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/runner.py
-    session             : &lt;Session &apos;test_ensure_pytest_pilot_installed0&apos;&gt;
-    terminalreporter    : &lt;_pytest.terminal.TerminalReporter object at 0x7fe1244ba518&gt;
-    lfplugin            : &lt;_pytest.cacheprovider.LFPlugin object at 0x7fe124488c50&gt;
-    pytestconfig        : &lt;_pytest.config.Config object at 0x7fe1253fdeb8&gt;
-    doctest             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/doctest.py
-    skipping            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/skipping.py
-    mark                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/mark.py
-    recwarn             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/recwarn.py
-    helpconfig          : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/helpconfig.py
-    pdb                 : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/pdb.py
-    terminal            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/terminal.py
-    assertion           : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/assertion/__init__.py
-    resultlog           : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/resultlog.py
-    monkeypatch         : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/monkeypatch.py
-    junitxml            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/junitxml.py
-    pastebin            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/pastebin.py
-    cacheprovider       : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/cacheprovider.py
-    tmpdir              : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/tmpdir.py
-    harvest             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_harvest/plugin.py
-    html                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_html/plugin.py
-    capturemanager      : &lt;_pytest.capture.CaptureManager object at 0x7fe124483400&gt;
     logging             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_logging/plugin.py
-    140604953308968     : &lt;pytest_harvest.plugin.DefaultXDistHarvester object at 0x7fe1244baf28&gt;
+    harvest             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_harvest/plugin.py
     genscript           : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/genscript.py
+    tmpdir              : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/tmpdir.py
+    runner              : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/runner.py
+    junitxml            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/junitxml.py
+    mark                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/mark.py
+    139873938272832     : &lt;_pytest.config.PytestPluginManager object at 0x7f36f0677240&gt;
+    session             : &lt;Session &apos;test_ensure_pytest_pilot_installed0&apos;&gt;
+    helpconfig          : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/helpconfig.py
+    funcmanage          : &lt;_pytest.python.FixtureManager object at 0x7f36ed88ce48&gt;
+    capturemanager      : &lt;_pytest.capture.CaptureManager object at 0x7f36ed8a2ba8&gt;
+    skipping            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/skipping.py
+    recwarn             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/recwarn.py
+    doctest             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/doctest.py
+    monkeypatch         : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/monkeypatch.py
+    pdb                 : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/pdb.py
+    capture             : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/capture.py
+    pilot               : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_pilot/plugin.py
+    resultlog           : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/resultlog.py
+    python              : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/python.py
+    pastebin            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/pastebin.py
     unittest            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/unittest.py
+    139873890126760     : &lt;pytest_harvest.plugin.DefaultXDistHarvester object at 0x7f36ed88cba8&gt;
+    pytestconfig        : &lt;_pytest.config.Config object at 0x7f36ee81bef0&gt;
+    assertion           : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/assertion/__init__.py
+    terminalreporter    : &lt;_pytest.terminal.TerminalReporter object at 0x7f36ed88c5c0&gt;
+    main                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/main.py
+    cacheprovider       : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/cacheprovider.py
+    html                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_html/plugin.py
+    lfplugin            : &lt;_pytest.cacheprovider.LFPlugin object at 0x7f36ed8aa400&gt;
+    terminal            : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/terminal.py
     nose                : /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/nose.py
 rootdir: /tmp/pytest-of-travis/pytest-0/testdir/test_ensure_pytest_pilot_installed0, inifile: 
-plugins: pilot-0.1.3.dev9+g35e1e34, logging-2015.11.4, html-1.9.0, harvest-1.9.3
+plugins: pilot-0.1.3.dev11+gacc685e, logging-2015.11.4, html-1.9.0, harvest-1.9.3
 collected 0 items
 
-========================= no tests ran in 0.00 seconds =========================
+========================= no tests ran in 0.01 seconds =========================
 </system-out><system-err>nomatch: &apos;*pytest-pilot-*&apos;
-    and: &apos;PLUGIN registered: &lt;_pytest.config.PytestPluginManager object at 0x7fe127259208&gt;&apos;
-    and: &apos;PLUGIN registered: &lt;_pytest.config.Config object at 0x7fe1253fdeb8&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;_pytest.config.PytestPluginManager object at 0x7f36f0677240&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;_pytest.config.Config object at 0x7f36ee81bef0&gt;&apos;
     and: &quot;PLUGIN registered: &lt;module &apos;_pytest.mark&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/mark.py&apos;&gt;&quot;
     and: &quot;PLUGIN registered: &lt;module &apos;_pytest.main&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/main.py&apos;&gt;&quot;
     and: &quot;PLUGIN registered: &lt;module &apos;_pytest.terminal&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/_pytest/terminal.py&apos;&gt;&quot;
@@ -108,19 +108,19 @@ collected 0 items
     and: &quot;PLUGIN registered: &lt;module &apos;pytest_logging.plugin&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_logging/plugin.py&apos;&gt;&quot;
     and: &quot;PLUGIN registered: &lt;module &apos;pytest_html.plugin&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_html/plugin.py&apos;&gt;&quot;
     and: &quot;PLUGIN registered: &lt;module &apos;pytest_harvest.plugin&apos; from &apos;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_harvest/plugin.py&apos;&gt;&quot;
-    and: &apos;PLUGIN registered: &lt;_pytest.capture.CaptureManager object at 0x7fe124483400&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;_pytest.capture.CaptureManager object at 0x7f36ed8a2ba8&gt;&apos;
     and: &quot;PLUGIN registered: &lt;Session &apos;test_ensure_pytest_pilot_installed0&apos;&gt;&quot;
-    and: &apos;PLUGIN registered: &lt;_pytest.cacheprovider.LFPlugin object at 0x7fe124488c50&gt;&apos;
-    and: &apos;PLUGIN registered: &lt;_pytest.terminal.TerminalReporter object at 0x7fe1244ba518&gt;&apos;
-    and: &apos;PLUGIN registered: &lt;pytest_harvest.plugin.DefaultXDistHarvester object at 0x7fe1244baf28&gt;&apos;
-    and: &apos;PLUGIN registered: &lt;_pytest.python.FixtureManager object at 0x7fe1244baf98&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;_pytest.cacheprovider.LFPlugin object at 0x7f36ed8aa400&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;_pytest.terminal.TerminalReporter object at 0x7f36ed88c5c0&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;pytest_harvest.plugin.DefaultXDistHarvester object at 0x7f36ed88cba8&gt;&apos;
+    and: &apos;PLUGIN registered: &lt;_pytest.python.FixtureManager object at 0x7f36ed88ce48&gt;&apos;
     and: &apos;============================= test session starts ==============================&apos;
     and: &apos;platform linux -- Python 3.5.6, pytest-2.9.2, py-1.9.0, pluggy-0.3.1&apos;
     and: &apos;using: pytest-2.9.2 pylib-1.9.0&apos;
     and: &apos;setuptools registered plugins:&apos;
 fnmatch: &apos;*pytest-pilot-*&apos;
-   with: &apos;  pytest-pilot-0.1.3.dev9+g35e1e34 at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_pilot/plugin.py&apos;
-</system-err></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="45" name="test_basic_markers_help" time="0.2582406997680664"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_markers_help0/runpytest-0 --markers --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
+   with: &apos;  pytest-pilot-0.1.3.dev11+gacc685e at /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest_pilot/plugin.py&apos;
+</system-err></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="45" name="test_basic_markers_help" time="0.2576618194580078"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_markers_help0/runpytest-0 --markers --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
      in: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_markers_help0
 @pytest.mark.silos: mark test to run *only* when --silos (&apos;silos&apos; option) is set.
 
@@ -154,7 +154,7 @@ exact match: &quot;@pytest.mark.hard_filter(value): mark test to run *both* when
 nomatch: &quot;@pytest.mark.soft_filter(value): mark test to run *both* when --soft_filter (&apos;soft_filter&apos; option) is set to &lt;value&gt; and if --soft_filter is not set.&quot;
     and: &apos;&apos;
 exact match: &quot;@pytest.mark.soft_filter(value): mark test to run *both* when --soft_filter (&apos;soft_filter&apos; option) is set to &lt;value&gt; and if --soft_filter is not set.&quot;
-</system-err></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="75" name="test_basic_options_help" time="0.265608549118042"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_options_help0/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_options_help0 --help --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
+</system-err></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="75" name="test_basic_options_help" time="0.266878604888916"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_options_help0/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_options_help0 --help --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
      in: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_options_help0
 usage: pytest.py [options] [file_or_dir] [file_or_dir] [...]
 
@@ -395,13 +395,13 @@ to see available fixtures type: py.test --fixtures
     and: &apos;&apos;
     and: &apos;custom options:&apos;
 exact match: &apos;  --silo                only run tests marked as silo (marked with @silo).&apos;
-</system-err></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions0-results0]" time="0.2703893184661865"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries0/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries0 -v -s --silo --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
+</system-err></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions0-results0]" time="0.30877089500427246"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries0/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries0 -v -s --silo --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
      in: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries0
 ============================= test session starts ==============================
 platform linux -- Python 3.5.6, pytest-2.9.2, py-1.9.0, pluggy-0.3.1 -- /home/travis/miniconda/envs/test-environment/bin/python
 cachedir: .cache
 rootdir: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries0, inifile: 
-plugins: pilot-0.1.3.dev9+g35e1e34, logging-2015.11.4, html-1.9.0, harvest-1.9.3
+plugins: pilot-0.1.3.dev11+gacc685e, logging-2015.11.4, html-1.9.0, harvest-1.9.3
 collecting ... collected 7 items
 
 test_basic_run_queries.py::test_silo PASSED
@@ -413,13 +413,13 @@ test_basic_run_queries.py::test_red_noenv SKIPPED
 test_basic_run_queries.py::test_nomark SKIPPED
 
 ===================== 1 passed, 6 skipped in 0.01 seconds ======================
-</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions1-results1]" time="0.2763228416442871"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries1/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries1 -v -s --hf --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
+</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions1-results1]" time="0.28550243377685547"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries1/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries1 -v -s --hf --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
      in: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries1
 ============================= test session starts ==============================
 platform linux -- Python 3.5.6, pytest-2.9.2, py-1.9.0, pluggy-0.3.1 -- /home/travis/miniconda/envs/test-environment/bin/python
 cachedir: .cache
 rootdir: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries1, inifile: 
-plugins: pilot-0.1.3.dev9+g35e1e34, logging-2015.11.4, html-1.9.0, harvest-1.9.3
+plugins: pilot-0.1.3.dev11+gacc685e, logging-2015.11.4, html-1.9.0, harvest-1.9.3
 collecting ... collected 7 items
 
 test_basic_run_queries.py::test_silo SKIPPED
@@ -431,13 +431,13 @@ test_basic_run_queries.py::test_red_noenv SKIPPED
 test_basic_run_queries.py::test_nomark SKIPPED
 
 ===================== 2 passed, 5 skipped in 0.01 seconds ======================
-</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions2-results2]" time="0.27735137939453125"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries2/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries2 -v -s --hf --flavour=red --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
+</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions2-results2]" time="0.2887108325958252"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries2/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries2 -v -s --hf --flavour=red --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
      in: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries2
 ============================= test session starts ==============================
 platform linux -- Python 3.5.6, pytest-2.9.2, py-1.9.0, pluggy-0.3.1 -- /home/travis/miniconda/envs/test-environment/bin/python
 cachedir: .cache
 rootdir: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries2, inifile: 
-plugins: pilot-0.1.3.dev9+g35e1e34, logging-2015.11.4, html-1.9.0, harvest-1.9.3
+plugins: pilot-0.1.3.dev11+gacc685e, logging-2015.11.4, html-1.9.0, harvest-1.9.3
 collecting ... collected 7 items
 
 test_basic_run_queries.py::test_silo SKIPPED
@@ -449,13 +449,13 @@ test_basic_run_queries.py::test_red_noenv SKIPPED
 test_basic_run_queries.py::test_nomark SKIPPED
 
 ===================== 1 passed, 6 skipped in 0.01 seconds ======================
-</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions3-results3]" time="0.27477097511291504"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries3/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries3 -v -s --hf --flavour=yellow --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
+</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions3-results3]" time="0.27640271186828613"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries3/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries3 -v -s --hf --flavour=yellow --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
      in: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries3
 ============================= test session starts ==============================
 platform linux -- Python 3.5.6, pytest-2.9.2, py-1.9.0, pluggy-0.3.1 -- /home/travis/miniconda/envs/test-environment/bin/python
 cachedir: .cache
 rootdir: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries3, inifile: 
-plugins: pilot-0.1.3.dev9+g35e1e34, logging-2015.11.4, html-1.9.0, harvest-1.9.3
+plugins: pilot-0.1.3.dev11+gacc685e, logging-2015.11.4, html-1.9.0, harvest-1.9.3
 collecting ... collected 7 items
 
 test_basic_run_queries.py::test_silo SKIPPED
@@ -467,13 +467,13 @@ test_basic_run_queries.py::test_red_noenv SKIPPED
 test_basic_run_queries.py::test_nomark SKIPPED
 
 ===================== 2 passed, 5 skipped in 0.01 seconds ======================
-</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions4-results4]" time="0.2671341896057129"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries4/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries4 -v -s --envid foo --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
+</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions4-results4]" time="0.2763817310333252"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries4/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries4 -v -s --envid foo --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
      in: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries4
 ============================= test session starts ==============================
 platform linux -- Python 3.5.6, pytest-2.9.2, py-1.9.0, pluggy-0.3.1 -- /home/travis/miniconda/envs/test-environment/bin/python
 cachedir: .cache
 rootdir: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries4, inifile: 
-plugins: pilot-0.1.3.dev9+g35e1e34, logging-2015.11.4, html-1.9.0, harvest-1.9.3
+plugins: pilot-0.1.3.dev11+gacc685e, logging-2015.11.4, html-1.9.0, harvest-1.9.3
 collecting ... collected 7 items
 
 test_basic_run_queries.py::test_silo SKIPPED
@@ -485,13 +485,13 @@ test_basic_run_queries.py::test_red_noenv PASSED
 test_basic_run_queries.py::test_nomark PASSED
 
 ===================== 4 passed, 3 skipped in 0.01 seconds ======================
-</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions5-results5]" time="0.2646949291229248"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries5/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries5 -v -s --envid=env1 --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
+</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions5-results5]" time="0.26956987380981445"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries5/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries5 -v -s --envid=env1 --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
      in: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries5
 ============================= test session starts ==============================
 platform linux -- Python 3.5.6, pytest-2.9.2, py-1.9.0, pluggy-0.3.1 -- /home/travis/miniconda/envs/test-environment/bin/python
 cachedir: .cache
 rootdir: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries5, inifile: 
-plugins: pilot-0.1.3.dev9+g35e1e34, logging-2015.11.4, html-1.9.0, harvest-1.9.3
+plugins: pilot-0.1.3.dev11+gacc685e, logging-2015.11.4, html-1.9.0, harvest-1.9.3
 collecting ... collected 7 items
 
 test_basic_run_queries.py::test_silo SKIPPED
@@ -503,13 +503,13 @@ test_basic_run_queries.py::test_red_noenv PASSED
 test_basic_run_queries.py::test_nomark PASSED
 
 ===================== 5 passed, 2 skipped in 0.01 seconds ======================
-</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions6-results6]" time="0.26033568382263184"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries6/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries6 -v -s --flavour=red --envid=env2 --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
+</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="109" name="test_basic_run_queries[cmdoptions6-results6]" time="0.26984238624572754"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries6/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries6 -v -s --flavour=red --envid=env2 --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
      in: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries6
 ============================= test session starts ==============================
 platform linux -- Python 3.5.6, pytest-2.9.2, py-1.9.0, pluggy-0.3.1 -- /home/travis/miniconda/envs/test-environment/bin/python
 cachedir: .cache
 rootdir: /tmp/pytest-of-travis/pytest-0/testdir/test_basic_run_queries6, inifile: 
-plugins: pilot-0.1.3.dev9+g35e1e34, logging-2015.11.4, html-1.9.0, harvest-1.9.3
+plugins: pilot-0.1.3.dev11+gacc685e, logging-2015.11.4, html-1.9.0, harvest-1.9.3
 collecting ... collected 7 items
 
 test_basic_run_queries.py::test_silo SKIPPED
@@ -521,7 +521,7 @@ test_basic_run_queries.py::test_red_noenv PASSED
 test_basic_run_queries.py::test_nomark PASSED
 
 ===================== 4 passed, 3 skipped in 0.01 seconds ======================
-</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="133" name="test_nameconflict" time="0.23131299018859863"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_nameconflict0/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_nameconflict0 --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
+</system-out></testcase><testcase classname="pytest_pilot.tests.test_main" file="pytest_pilot/tests/test_main.py" line="133" name="test_nameconflict" time="0.2514464855194092"><system-out>running: /home/travis/miniconda/envs/test-environment/bin/python /home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/test_nameconflict0/runpytest-0 /tmp/pytest-of-travis/pytest-0/testdir/test_nameconflict0 --basetemp=/tmp/pytest-of-travis/pytest-0/testdir/basetemp
      in: /tmp/pytest-of-travis/pytest-0/testdir/test_nameconflict0
 </system-out><system-err>Traceback (most recent call last):
   File &quot;/home/travis/miniconda/envs/test-environment/lib/python3.5/site-packages/pytest.py&quot;, line 17, in &lt;module&gt;
