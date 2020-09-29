@@ -50,7 +50,7 @@ def test_basic_markers_help(testdir):
                                 from pytest_pilot import EasyMarker
                 
                                 silos_marker = EasyMarker('silos', has_arg=False, mode="silos")
-                                extender_marker = EasyMarker('extender', allowed_values=('red', 'yellow'))
+                                extender_marker = EasyMarker('extender', allowed_values=('red', 'yellow'), mode="extender")
                                 hardfilter_marker = EasyMarker('hard_filter', full_name='bbb', mode="hard_filter")
                                 softfilter_marker = EasyMarker('soft_filter', mode="soft_filter")
                                 """))
@@ -139,7 +139,7 @@ def test_nameconflict(testdir):
     testdir.makeconftest(dedent("""
                                 from pytest_pilot import EasyMarker
                                 
-                                colormarker = EasyMarker('color', allowed_values=('red', 'yellow'))
+                                colormarker = EasyMarker('color', mode="extender", allowed_values=('red', 'yellow'))
                                 """))
 
     result = testdir.runpytest(testdir.tmpdir)
@@ -153,8 +153,8 @@ def test_nameconflict_short(testdir):
     testdir.makeconftest(dedent("""
                                 from pytest_pilot import EasyMarker
 
-                                a = EasyMarker('a', cmdoption_short='-a')
-                                aa = EasyMarker('aa', cmdoption_short='-a')
+                                a = EasyMarker('a', cmdoption_short='-a', mode="extender")
+                                aa = EasyMarker('aa', cmdoption_short='-a', mode="extender")
                                 """))
 
     result = testdir.runpytest(testdir.tmpdir)
