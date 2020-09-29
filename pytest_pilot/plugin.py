@@ -71,10 +71,15 @@ def pytest_load_initial_conftests(early_config, parser, args):
             raise ValueError("Error registering marker '%s': a command with this name already exists. Conflicting "
                              "name(s): %s" % (marker, conflicting))
         else:
+            names = []
+            if marker.cmdoption_short is not None:
+                names.append(marker.cmdoption_short)
+            if marker.cmdoption_long is not None:
+                names.append(marker.cmdoption_long)
             if marker.has_arg:
-                parser.addoption(marker.cmdoption_long, action="store", metavar="NAME", help=marker.cmdhelp)
+                parser.addoption(*names, action="store", metavar="NAME", help=marker.cmdhelp)
             else:
-                parser.addoption(marker.cmdoption_long, action="store_true", help=marker.cmdhelp)
+                parser.addoption(*names, action="store_true", help=marker.cmdhelp)
 
 
 def pytest_configure(config):
