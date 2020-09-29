@@ -87,10 +87,10 @@ def test_basic_options_help(testdir):
     result = testdir.runpytest(testdir.tmpdir, '--help')
 
     if LooseVersion(pytest.__version__) < "5.0.0":
-        # note: in pytest 2 the help is formatted a bit differently
-        expected_lines = ["  --silo                only run tests marked as silo (marked with @silo)."]
+        # note: in old pytest the help is formatted a bit differently
+        expected_lines = ["  -Z, --silo            only run tests marked as silo (marked with @silo)."]
     else:
-        expected_lines = """  --silo                only run tests marked as silo (marked with @silo).
+        expected_lines = """  -Z, --silo            only run tests marked as silo (marked with @silo).
                         Important: if you call `pytest` without this option,
                         tests marked with @silo will *not* be run.
   --hf                  only run tests marked as hf (marked with @hf). If you
@@ -108,6 +108,8 @@ def test_basic_options_help(testdir):
 
 
 @pytest.mark.parametrize("cmdoptions,results", [
+    ((), dict(passed=4, skipped=3)),
+    (('-Z',), dict(passed=1, skipped=6)),
     (('--silo',), dict(passed=1, skipped=6)),
     (('--hf',), dict(passed=2, skipped=5)),
     (('--hf', '--flavour=red'), dict(passed=1, skipped=6)),
@@ -141,7 +143,22 @@ def test_nameconflict(testdir):
                                 """))
 
     result = testdir.runpytest(testdir.tmpdir)
-    expected_lines = "ValueError: Error registering marker 'Pytest marker 'color' with commandline option '--color' " \
-                     "and pytest mark '@pytest.mark.color(<color>)'': a command with this name already exists. " \
-                     "Conflicting name(s): ['--color']"
+    expected_lines = "ValueError: Error registering <Pytest marker 'color' with CLI option '--color' " \
+                     "and decorator '@pytest.mark.color(<color>)'>: a command with this long or short name already " \
+                     "exists. Conflicting name(s): ['--color']"
+    result.stderr.fnmatch_lines(expected_lines)
+
+
+def test_nameconflict_short(testdir):
+    testdir.makeconftest(dedent("""
+                                from pytest_pilot import EasyMarker
+
+                                a = EasyMarker('a', cmdoption_short='-a')
+                                aa = EasyMarker('aa', cmdoption_short='-a')
+                                """))
+
+    result = testdir.runpytest(testdir.tmpdir)
+    expected_lines = "ValueError: Error registering <Pytest marker 'a' with CLI option '-a/--a' " \
+                     "and decorator '@pytest.mark.a(<a>)'>: a command with this long or short name already " \
+                     "exists. Caught: ValueError('lowercase shortoptions reserved')"
     result.stderr.fnmatch_lines(expected_lines)

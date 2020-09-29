@@ -165,8 +165,8 @@ class EasyMarker(object):
         self.used_values = set()
 
     def __str__(self):
-        return "Pytest marker '%s' with commandline option '%s' and pytest mark '@pytest.mark.%s(<%s>)'" \
-               % (self.full_name, self.cmdoption_long, self.marker_id, self.marker_id)
+        return "Pytest marker '%s' with CLI option '%s' and decorator '@pytest.mark.%s(<%s>)'" \
+               % (self.full_name, self.cmdoption_both, self.marker_id, self.marker_id)
 
     def __repr__(self):
         return str(self)

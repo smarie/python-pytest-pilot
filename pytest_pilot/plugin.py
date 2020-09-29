@@ -60,6 +60,9 @@ def pytest_load_initial_conftests(early_config, parser, args):
 
     # then add the options accordingly
     for marker in all_markers:
+        # For long names (and sometimes short ones too?) the conflict
+        # does not raise an error in pytest when adding the option, therefore
+        # we try to provide some early detection here.
         short_exists = marker.cmdoption_short.strip('-') in existing_opts if marker.cmdoption_short is not None else False
         long_exists = marker.cmdoption_long.strip('-') in existing_opts
         if short_exists or long_exists:
@@ -68,18 +71,23 @@ def pytest_load_initial_conftests(early_config, parser, args):
                 conflicting.append(marker.cmdoption_short)
             if long_exists:
                 conflicting.append(marker.cmdoption_long)
-            raise ValueError("Error registering marker '%s': a command with this name already exists. Conflicting "
-                             "name(s): %s" % (marker, conflicting))
-        else:
-            names = []
-            if marker.cmdoption_short is not None:
-                names.append(marker.cmdoption_short)
-            if marker.cmdoption_long is not None:
-                names.append(marker.cmdoption_long)
+            raise ValueError("Error registering <%s>: a command with this long or short name already exists."
+                             " Conflicting name(s): %s" % (marker, conflicting))
+
+        # No long name conflict. add option and catch short name conflicts
+        names = []
+        if marker.cmdoption_short is not None:
+            names.append(marker.cmdoption_short)
+        if marker.cmdoption_long is not None:
+            names.append(marker.cmdoption_long)
+        try:
             if marker.has_arg:
                 parser.addoption(*names, action="store", metavar="NAME", help=marker.cmdhelp)
             else:
                 parser.addoption(*names, action="store_true", help=marker.cmdhelp)
+        except Exception as e:
+            raise ValueError("Error registering <%s>: a command with this long or short name already exists. "
+                             "Caught: %r" % (marker, e))
 
 
 def pytest_configure(config):

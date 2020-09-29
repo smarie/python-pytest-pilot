@@ -1,6 +1,7 @@
 from pytest_pilot import EasyMarker
 
-silomarker = EasyMarker("silo", mode="silos", has_arg=False)
+
+silomarker = EasyMarker("silo", cmdoption_short="-Z", mode="silos", has_arg=False)
 
 
 hardfilter = EasyMarker("hf", mode="hard_filter", has_arg=False)
