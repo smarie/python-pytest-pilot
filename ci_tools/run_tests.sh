@@ -12,11 +12,15 @@ cleanup() {
 
 trap "cleanup" INT TERM EXIT
 
-if [ "${TRAVIS_PYTHON_VERSION}" = "3.5" ]; then
+if [ "${TRAVIS_PYTHON_VERSION}" = "3.5" && "${PYTEST_VERSION}" = "" ]; then
     # full
     # First the raw for coverage
     echo -e "\n\n****** Running tests : 1/2 RAW******\n\n"
-    coverage run --source pytest_pilot -m pytest -v pytest_pilot/test_cases/
+    coverage run --source pytest_pilot -m pytest -v pytest_pilot/test_cases/basic/
+    # other runs with flags
+    coverage run --append --source pytest_pilot -m pytest -v pytest_pilot/test_cases/basic/ -Z
+    coverage run --append --source pytest_pilot -m pytest -v pytest_pilot/test_cases/basic/ --hf
+    coverage run --append --source pytest_pilot -m pytest -v pytest_pilot/test_cases/basic/ --envid=env1 --flavour=yellow
     # python -m pytest --cov-report term-missing --cov=./pytest_pilot -v pytest_pilot/test_cases/
 
     # Then the meta (appended)
