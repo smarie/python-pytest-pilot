@@ -12,7 +12,7 @@ cleanup() {
 
 trap "cleanup" INT TERM EXIT
 
-if [ "${TRAVIS_PYTHON_VERSION}" = "3.5" && "${PYTEST_VERSION}" = "" ]; then
+if [ "${TRAVIS_PYTHON_VERSION}" = "3.5" ] && [ "${PYTEST_VERSION}" = "" ]; then
     # full
     # First the raw for coverage
     echo -e "\n\n****** Running tests : 1/2 RAW******\n\n"
