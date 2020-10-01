@@ -22,6 +22,7 @@ EXTRAS_REQUIRE = {}
 # ************** ID card *****************
 DISTNAME = 'pytest-pilot'
 DESCRIPTION = 'Slice in your test base thanks to powerful markers.'
+AUTHOR = 'Sylvain MARIE'
 MAINTAINER = 'Sylvain MARIE'
 MAINTAINER_EMAIL = 'sylvain.marie@schneider-electric.com'
 URL = 'https://github.com/smarie/python-pytest-pilot'
@@ -47,6 +48,7 @@ setup(
     # https://packaging.python.org/en/latest/single_source_version.html
     # version=VERSION, NOW HANDLED BY GIT
 
+    author=AUTHOR,
     maintainer=MAINTAINER,
     maintainer_email=MAINTAINER_EMAIL,
 
