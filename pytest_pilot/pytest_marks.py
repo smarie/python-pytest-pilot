@@ -29,7 +29,12 @@ class EasyMarkerDecorator(MarkDecorator):
     @classmethod
     def create_with_name(cls, name):
         # create a pytest.mark.<name>, and copy its internal mark
-        mark = getattr(pytest.mark, name).mark
+        _md = getattr(pytest.mark, name)
+        try:
+            mark = _md.mark
+        except AttributeError:
+            # happens in pytest 2, to maybe move in compat in the future
+            mark = _md.markname
         return cls(mark)
 
     def param(self, *values):
