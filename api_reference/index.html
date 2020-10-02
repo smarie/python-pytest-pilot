@@ -314,7 +314,14 @@
 </code></pre></div>
 
 
-<p>Creates a pair of marker + commandline option for pytest.</p>
+<p>Creates a pair of marker + commandline option for pytest. Marker instances can be used</p>
+<ul>
+<li>to decorate test classes or test functions: @marker or @marker(arg) depending whether you set has_arg=False/True</li>
+<li>in parametrization values with <code>pytest.param(*&lt;argvalues&gt;, marks=&lt;self&gt;)</code> or 
+ <code>pytest.param(*&lt;argvalues&gt;, marks=&lt;self&gt;(arg))</code> (for this, we inherit from MarkDecorator and override <self>.mark)</li>
+</ul>
+<p>In addition, <code>&lt;self&gt;.param(*&lt;argvalues&gt;)</code> or <code>&lt;self&gt;(arg).param(*&lt;argvalues&gt;)</code> is a convenience method provided to
+do the same than <code>pytest.param(*&lt;argvalues&gt;, marks=&lt;self&gt;)</code> or <code>pytest.param(*&lt;argvalues&gt;, marks=&lt;self&gt;(arg))</code>.</p>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>marker_id</code>: the name of the pytest mark. Applying this marker with <code>@marker(arg)</code> will be equivalent to applying @pytest.mark.<marker_id>(arg)</li>
@@ -404,7 +411,7 @@
     </div>
     
       <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
-      <script src="../assets/javascripts/bundle.aa3f9871.min.js"></script><script id="__lang" type="application/json">{"search.result.one": "1 matching document", "search.result.more.other": "# more on this page", "search.config.pipeline": "trimmer, stopWordFilter", "search.result.none": "No matching documents", "clipboard.copy": "Copy to clipboard", "search.result.term.missing": "Missing", "search.config.lang": "en", "search.result.more.one": "1 more on this page", "search.result.placeholder": "Type to start searching", "clipboard.copied": "Copied to clipboard", "search.result.other": "# matching documents", "search.config.separator": "[\\s\\-]+"}</script>
+      <script src="../assets/javascripts/bundle.aa3f9871.min.js"></script><script id="__lang" type="application/json">{"search.result.term.missing": "Missing", "clipboard.copy": "Copy to clipboard", "search.result.none": "No matching documents", "clipboard.copied": "Copied to clipboard", "search.result.one": "1 matching document", "search.result.more.other": "# more on this page", "search.config.separator": "[\\s\\-]+", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.lang": "en", "search.result.more.one": "1 more on this page", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
       
       <script>
         app = initialize({
