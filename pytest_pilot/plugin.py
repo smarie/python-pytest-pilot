@@ -101,6 +101,12 @@ def pytest_configure(config):
     set_verbosity_level(verbositylevel)
 
 
+# def pytest_collection_modifyitems(items, config):
+#     # todo new option for markers to decide between skipping and deselecting ?
+#     see https://github.com/smarie/python-pytest-pilot/issues/14
+#     deselect_by_mark(items, config)
+
+
 def pytest_runtest_setup(item):
     """
     Dynamically skips tests that can not be run on the current environment
