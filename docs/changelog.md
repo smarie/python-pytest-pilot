@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.6.0 - Usage in parametrization
+
+ - `EasyMarker` markers can now be used on parameters in tests (and also on case functions, if you use `pytest-cases` :)). Fixes [#12](https://github.com/smarie/python-pytest-pilot/issues/12)
+
 ### 0.5.0 - Better API, implementation and documentation
 
  - `EasyMarker` API improvements: now a single `mode` argument with four supported values (`'silos'`, `'extender'`, `hard_filter`, `soft_filter`) replaces the very unfriendly `filtering_skips_unmarked` and `not_filtering_skips_marked`. This argument is mandatory, so that users have to decide what they want as a resulting behaviour. Fixes [#5](https://github.com/smarie/python-pytest-pilot/issues/5)
