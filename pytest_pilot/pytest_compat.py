@@ -86,3 +86,9 @@ def itermarkers(item, name):
             return ()
         else:
             return marker,
+
+
+try:
+    from _pytest.warning_types import PytestUnknownMarkWarning
+except ImportError:
+    PytestUnknownMarkWarning = UserWarning

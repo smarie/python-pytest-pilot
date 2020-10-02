@@ -1,19 +1,15 @@
-from inspect import isfunction
-import warnings
+from inspect import isfunction, isclass
 
+import warnings
 import pytest
-try:
-    from _pytest.warning_types import PytestUnknownMarkWarning
-except ImportError:
-    PytestUnknownMarkWarning = UserWarning
 
 try:  # python 3.5+
     from typing import Set, Any, List, Iterable
 except ImportError:
     pass
 
-
-from pytest_pilot.pytest_compat import itermarkers, apply_mark_to
+from _pytest.mark import MarkDecorator
+from .pytest_compat import itermarkers, apply_mark_to, PytestUnknownMarkWarning
 
 
 info_mode = False
@@ -26,9 +22,32 @@ def set_verbosity_level(pytest_config_verbositylevel):
     debug_mode = pytest_config_verbositylevel >= 4  # -vvv
 
 
-class EasyMarker(object):
+class EasyMarkerDecorator(MarkDecorator):
+    """
+    A mark decorator that in addition provides a .param(*values) convenience method
+    """
+    @classmethod
+    def create_with_name(cls, name):
+        # create a pytest.mark.<name>, and copy its internal mark
+        mark = getattr(pytest.mark, name).mark
+        return cls(mark)
+
+    def param(self, *values):
+        """ Convenience shortcut for `pytest.param(*values, marks=self)` """
+        return pytest.param(*values, marks=self)
+
+
+class EasyMarker(MarkDecorator):
     """
     A helper class to create pytest marks.
+
+    Instances can be used
+
+     - as a test class or test function decorator
+     - in `pytest.param(*<argvalues>, marks=<self>)` (for this, we inherit from MarkDecorator and override <self>.mark)
+
+    In addition, <self>.param(*<argvalues>) is a convenience method provided to
+    do the same than `pytest.param(*<argvalues>, marks=<self>)`.
     """
     __slots__ = 'marker_id', 'full_name', \
                 'has_arg', 'allowed_values', 'used_values', \
@@ -119,6 +138,10 @@ class EasyMarker(object):
             raise ValueError("a non-None `marker_id` is mandatory")
         self.marker_id = marker_id
 
+        # no need to call super constructor, we will never use it directly
+        # indeed we override the .mark attribute with a property, see below
+        # super(EasyMarker, self).__init__(Mark(marker_id, (), {}))
+
         self.full_name = full_name if full_name is not None else marker_id  # (default)
 
         # arguments
@@ -161,6 +184,17 @@ class EasyMarker(object):
 
         # prepare to collect the list of values actually used
         self.used_values = set()
+
+    @property
+    def mark(self):
+        # called by pytest when    pytest.param(<argvalue>, marks=<self>)
+        if self.has_arg:
+            raise ValueError("This marker '%s' has a mandatory argument" % self.marker_id)
+        return self.get_mark_decorator().mark
+
+    def param(self, *values):
+        """ Convenience shortcut for `pytest.param(*values, marks=self)` """
+        return pytest.param(*values, marks=self)
 
     def __str__(self):
         return "Pytest marker '%s' with CLI option '%s' and decorator '@pytest.mark.%s(<%s>)'" \
@@ -219,16 +253,28 @@ class EasyMarker(object):
         """
         Called when the marker is either called with an argument, or called to decorate a function
 
-        TODO should we inherit from MarkDecorator to automatically benefit from this?
+        Note: we purposedly override MarkDecorator.__call__ because we do not have to support accumulating arguments:
+        either there are arguments or not, but if there are, they are provided only once.
 
         :param args:
         :param kwargs:
         :return:
         """
-        if not self.has_arg and len(args) == 1 and len(kwargs) == 0 and isfunction(args[0]):
-            return self.get_mark_decorator()(*args)
+        if not self.has_arg:
+            # (a) Marker without argument
+            if len(args) == 1 and len(kwargs) == 0 and (isfunction(args[0]) or isclass(args[0])):
+                # used without parenthesis:   @marker
+                return self.get_mark_decorator()(args[0])
+            else:
+                # used with parenthesis:   @marker()
+                assert len(args) == 0 and len(kwargs) == 0, "This marker does not accept any argument. " \
+                                                            "Use <self>.param(<value>) if you wish to mark a specific" \
+                                                            " @parametrize value"
+                # return self to fallback on the no parenthesis mode
+                return self
         else:
-            return self.get_mark_decorator(*args, **kwargs)
+            # (b) Marker with a mandatory argument: this has to be @marker(arg)
+            return self.get_mark_decorator(*args)
 
     def get_mark_decorator(self, *mark_value):
         """
@@ -261,7 +307,7 @@ class EasyMarker(object):
         # create it
         with warnings.catch_warnings():
             warnings.filterwarnings('ignore', category=PytestUnknownMarkWarning)
-            return getattr(pytest.mark, self.marker_id)(*mark_value)
+            return EasyMarkerDecorator.create_with_name(self.marker_id)(*mark_value)
 
     def apply_to_param_value(self, param_value, *args):
         """
@@ -342,6 +388,7 @@ class EasyMarker(object):
             # /2/ we run with a CLI option filter, for example `pytest --envid=a` or `pytest --blue`.
             if len(required_marks) > 0:
                 # -- current test has at least 1 mark of this type: if the mark has an arg, check that it matches query.
+                # NOTE: ONE MATCH IS ENOUGH to avoid being skipped ! (this is an OR, not an AND)
                 if self.has_arg and query not in required_marks:
                     if len(required_marks) == 1:
                         pytest.skip("This test requires %r=%r. Currently `%s=%s` so it is skipped."
