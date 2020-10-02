@@ -19,7 +19,14 @@ EasyMarker(marker_id,             # type: str
            )
 ```
 
-Creates a pair of marker + commandline option for pytest.
+Creates a pair of marker + commandline option for pytest. Marker instances can be used
+
+ - to decorate test classes or test functions: @marker or @marker(arg) depending whether you set has_arg=False/True
+ - in parametrization values with `pytest.param(*<argvalues>, marks=<self>)` or 
+ `pytest.param(*<argvalues>, marks=<self>(arg))` (for this, we inherit from MarkDecorator and override <self>.mark)
+
+In addition, `<self>.param(*<argvalues>)` or `<self>(arg).param(*<argvalues>)` is a convenience method provided to
+do the same than `pytest.param(*<argvalues>, marks=<self>)` or `pytest.param(*<argvalues>, marks=<self>(arg))`.
 
 **Parameters:**
 

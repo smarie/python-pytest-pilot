@@ -329,16 +329,25 @@ You can see that now `test_foo`, that was not marked, was not skipped - as oppos
 
 #### Using the markers in parametrized tests
 
-If your tests are parametrized, you should be able to use the markers on each parametrization value:
+If your tests are parametrized, you can use the markers on individual parametrization value:
+
+ - either using the traditional `pytest.param(<argvalues>, marks=<marker>)`
+ - either using the provided convenience method `<marker>.param(<argvalues>)`
+
+As shown below: 
 
 ```python
-@pytest.mark.parametrize("a", [0, envid(False), slow(True), 1])
+@pytest.mark.parametrize("a", [
+    pytest.param(-1, marks=slow),
+    0, 
+    pytest.param(False, marks=envid("win")),
+    slow.param(True), 
+    1,
+    envid("win").param(2)
+])
 def test_foo(a):
     pass
 ```
-
-However this is an [open issue](https://github.com/smarie/python-pytest-pilot/issues/12) (help from a pytest expert would be much appreciated!).
-
 
 #### Further customization
 
