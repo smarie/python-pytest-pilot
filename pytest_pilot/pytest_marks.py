@@ -42,17 +42,17 @@ class EasyMarkerDecorator(MarkDecorator):
         return pytest.param(*values, marks=self)
 
 
+class _Agnostic:
+    """A special symbol used internally"""
+    def __repr__(self):
+        return "agnostic"
+
+
 class EasyMarker(MarkDecorator):
     """
-    Creates a pair of marker + commandline option for pytest. Marker instances can be used
-
-     - to decorate test classes or test functions: @marker or @marker(arg) depending whether you set has_arg=False/True
-     - in parametrization values with `pytest.param(*<argvalues>, marks=<self>)` or
-     `pytest.param(*<argvalues>, marks=<self>(arg))` (for this, we inherit from MarkDecorator and override <self>.mark)
-
-    In addition, `<self>.param(*<argvalues>)` or `<self>(arg).param(*<argvalues>)` is a convenience method provided to
-    do the same than `pytest.param(*<argvalues>, marks=<self>)` or `pytest.param(*<argvalues>, marks=<self>(arg))`.
+    A pair of marker + commandline option for pytest. See constructor for details
     """
+
     __slots__ = 'marker_id', 'full_name', \
                 'has_arg', 'allowed_values', 'used_values', \
                 'cmdoption_short', 'cmdoption_long',  \
@@ -73,9 +73,17 @@ class EasyMarker(MarkDecorator):
                  markhelp=None,         # type: str
                  ):
         """
-        Constructor
+        Creates a pair of marker + commandline option for pytest. Marker instances can be used
 
-        TODO
+         - to decorate test classes or test functions: @marker or @marker(arg) depending whether you set has_arg=False/True
+         - in parametrization values with `pytest.param(*<argvalues>, marks=<self>)` or
+         `pytest.param(*<argvalues>, marks=<self>(arg))` (for this, we inherit from MarkDecorator and override <self>.mark)
+
+        In addition, `<self>.param(*<argvalues>)` or `<self>(arg).param(*<argvalues>)` is a convenience method provided to
+        do the same than `pytest.param(*<argvalues>, marks=<self>)` or `pytest.param(*<argvalues>, marks=<self>(arg))`.
+
+        A special decorator `@<marker>.agnostic` can be used to decorate tests that should always run, whatever the
+        configuration. This is only relevant for `mode='silos'` or `mode='hard_filter'`, see below.
 
         :param marker_id: the name of the pytest mark. Applying this marker with `@marker(arg)` will be equivalent to
             applying @pytest.mark.<marker_id>(arg)
@@ -280,7 +288,15 @@ class EasyMarker(MarkDecorator):
             # (b) Marker with a mandatory argument: this has to be @marker(arg)
             return self.get_mark_decorator(*args)
 
-    def get_mark_decorator(self, *mark_value):
+    @property
+    def agnostic(self):
+        """"""
+        if not self.filtering_skips_unmarked:
+            warnings.warn("It does not make sense to use `@<marker>.agnostic` when the mode is not 'silos' or "
+                          "'hard_filter'")
+        return self.get_mark_decorator(agnostic=True)
+
+    def get_mark_decorator(self, *mark_value, agnostic=False):
         """
         dynamically create @pytest.mark.<marker_id>(mark_value)
         and remembers the set of all used values
@@ -289,7 +305,12 @@ class EasyMarker(MarkDecorator):
         :return:
         """
         nbargs = len(mark_value)
-        if not self.has_arg:
+        if agnostic:
+            # we expect no args
+            if nbargs > 0:
+                raise ValueError("This marker '%s.agnostic' accepts no arguments" % self.marker_id)
+            mark_value = (_Agnostic(),)
+        elif not self.has_arg:
             # we expect no args
             if nbargs > 0:
                 raise ValueError("This marker '%s' accepts no arguments" % self.marker_id)
@@ -332,7 +353,17 @@ class EasyMarker(MarkDecorator):
         :return:
         """
         # todo read item.callspec.params ?
-        return [mark.args[0] if self.has_arg else True for mark in itermarkers(item, name=self.marker_id)]
+        marks = []
+        is_agnostic = False
+        for mark in itermarkers(item, name=self.marker_id):
+            try:
+                if isinstance(mark.args[0], _Agnostic):
+                    is_agnostic = True
+                    continue
+            except:  # noqa  # IndexError or any other error happening during isinstance
+                pass
+            marks.append(mark.args[0] if self.has_arg else True)
+        return marks, is_agnostic
 
     def skip_if_not_compliant(self, item, query=None):
         """
@@ -361,11 +392,11 @@ class EasyMarker(MarkDecorator):
                 # AttributeError: 'Namespace' object has no attribute 'a' can happen sometimes/ in some versions
                 pass
 
-        required_marks = self.read_marks(item)
+        required_marks, is_agnostic = self.read_marks(item)
         no_query = query is None if self.has_arg else query is False
 
         if no_query:
-            # /1/ we run without CLI option filter
+            # /1/ no query: we run without CLI option filter
             if self.not_filtering_skips_marked:
                 # (a) skip all tests that have marks
                 if len(required_marks) > 0:
@@ -389,7 +420,7 @@ class EasyMarker(MarkDecorator):
                     print("%s option '%s' was not used, all items can run" % (logprefix, self.cmdoption_long))
 
         else:
-            # /2/ we run with a CLI option filter, for example `pytest --envid=a` or `pytest --blue`.
+            # /2/ query = we run with a CLI option filter, for example `pytest --envid=a` or `pytest --blue`.
             if len(required_marks) > 0:
                 # -- current test has at least 1 mark of this type: if the mark has an arg, check that it matches query.
                 # NOTE: ONE MATCH IS ENOUGH to avoid being skipped ! (this is an OR, not an AND)
@@ -407,7 +438,10 @@ class EasyMarker(MarkDecorator):
                               % (logprefix, required_marks, query))
             else:
                 # -- the test does not have this mark.
-                if self.filtering_skips_unmarked:
+                if is_agnostic:
+                    if info_mode:
+                        print("%s item has an 'agnostic' mark, it can run" % (logprefix, ))
+                elif self.filtering_skips_unmarked:
                     # (a) skip all tests that have no marks
                     if self.has_arg:
                         pytest.skip("This test does not have mark '%s', and pytest was run with `%s=%s` so it is "
