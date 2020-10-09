@@ -9,7 +9,7 @@
       
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.1">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
     
     
       
@@ -195,7 +195,7 @@
         <span class="md-nav__icon md-icon"></span>
       </label>
     
-    <a href="." title="Home" class="md-nav__link md-nav__link--active">
+    <a href="." class="md-nav__link md-nav__link--active">
       Home
     </a>
     
@@ -389,7 +389,7 @@
 
 
   <li class="md-nav__item">
-    <a href="api_reference/" title="API reference" class="md-nav__link">
+    <a href="api_reference/" class="md-nav__link">
       API reference
     </a>
   </li>
@@ -401,7 +401,7 @@
 
 
   <li class="md-nav__item">
-    <a href="changelog/" title="Changelog" class="md-nav__link">
+    <a href="changelog/" class="md-nav__link">
       Changelog
     </a>
   </li>
@@ -705,6 +705,10 @@
 
 <span class="k">def</span> <span class="nf">test_foo</span><span class="p">():</span>
     <span class="k">pass</span>
+
+<span class="nd">@envid</span><span class="o">.</span><span class="n">agnostic</span>
+<span class="k">def</span> <span class="nf">test_bar</span><span class="p">():</span>
+    <span class="k">pass</span>
 </code></pre></div>
 
 
@@ -712,16 +716,17 @@
 <div class="codehilite"><pre><span></span><code>&gt;&gt;&gt; pytest -rs
 ============================= test session starts ==========================================
 (...)
-collected 3 items
+collected 4 items
 
-pytest_pilot/test_doc/test_silos.py::test_foo_a SKIPPED       [ 33%]
-pytest_pilot/test_doc/test_silos.py::test_foo_b SKIPPED       [ 66%]
-pytest_pilot/test_doc/test_silos.py::test_foo PASSED          [100%]
+pytest_pilot/test_doc/test_silos.py::test_foo_a SKIPPED       [ 25%]
+pytest_pilot/test_doc/test_silos.py::test_foo_b SKIPPED       [ 50%]
+pytest_pilot/test_doc/test_silos.py::test_foo PASSED          [ 75%]
+pytest_pilot/test_doc/test_silos.py::test_bar PASSED          [100%]
 
 ========================== short test summary info =========================================
 SKIPPED [1] &lt;file&gt;: This test requires &#39;envid&#39;=&#39;a&#39;. Run `pytest --envid=a` to activate it.
 SKIPPED [1] &lt;file&gt;: This test requires &#39;envid&#39;=&#39;b&#39;. Run `pytest --envid=b` to activate it.
-========================== 1 passed, 2 skipped in 0.04s ====================================
+========================== 2 passed, 2 skipped in 0.04s ====================================
 </code></pre></div>
 
 
@@ -729,20 +734,21 @@ SKIPPED [1] &lt;file&gt;: This test requires &#39;envid&#39;=&#39;b&#39;. Run `p
 <div class="codehilite"><pre><span></span><code>&gt;&gt;&gt; pytest -rs --envid=b
 ============================= test session starts ==========================================
 (...)
-collected 3 items
+collected 4 items
 
-pytest_pilot/test_doc/test_silos.py::test_foo_a SKIPPED        [ 33%]
-pytest_pilot/test_doc/test_silos.py::test_foo_b PASSED         [ 66%]
-pytest_pilot/test_doc/test_silos.py::test_foo SKIPPED          [100%]
+pytest_pilot/test_doc/test_silos.py::test_foo_a SKIPPED        [ 25%]
+pytest_pilot/test_doc/test_silos.py::test_foo_b PASSED         [ 50%]
+pytest_pilot/test_doc/test_silos.py::test_foo SKIPPED          [ 75%]
+pytest_pilot/test_doc/test_silos.py::test_bar PASSED           [100%]
 
 ========================== short test summary info =============================================================
 SKIPPED [1] &lt;file&gt;: This test requires &#39;envid&#39;=&#39;a&#39;. Currently `--envid=b` so it is skipped.
 SKIPPED [1] &lt;file&gt;: This test does not have mark &#39;envid&#39;, and pytest was run with `--envid=b` so it is skipped
-========================== 1 passed, 2 skipped in 0.04s ========================================================
+========================== 2 passed, 2 skipped in 0.04s ========================================================
 </code></pre></div>
 
 
-<p>Note that as can be seen above, <code>test_foo</code>, that was not marked, is now skipped (it is implicitly in the "no env" silo so if we activate another silo it becomes skipped). This is the main difference with the <a href="#extender">"extender" mode below</a>.</p>
+<p>Note that as can be seen above, <code>test_foo</code>, that was not marked, is now skipped (it is implicitly in the "no env" silo so if we activate another silo it becomes skipped). Only tests explicitly marked as agnostic (in this example <code>test_bar</code>) are allowed to run whatever the silo. This is the main difference with the <a href="#extender">"extender" mode below</a>.</p>
 <h4 id="extender">Extender<a class="headerlink" href="#extender" title="Permanent link">&para;</a></h4>
 <p>The extender mode is probably the simplest to understand: marked tests are optional tests, that can be added to the other tests when the option is specified. For example let's mark a few tests as being slow tests that should be skipped for daily testing. Note that this time we'll create a marker with no arguments to show that such markers can also be created, but it could of course receive arguments just as in previous example.</p>
 <ul>
@@ -823,6 +829,10 @@ pytest_pilot/test_doc/test_extender.py::test_foo PASSED             [100%]
 
 <span class="k">def</span> <span class="nf">test_foo</span><span class="p">():</span>
     <span class="k">pass</span>
+
+<span class="nd">@flavour</span><span class="o">.</span><span class="n">agnostic</span>
+<span class="k">def</span> <span class="nf">test_bar</span><span class="p">():</span>
+    <span class="k">pass</span>
 </code></pre></div>
 
 
@@ -830,12 +840,13 @@ pytest_pilot/test_doc/test_extender.py::test_foo PASSED             [100%]
 <div class="codehilite"><pre><span></span><code>&gt;&gt;&gt; pytest -rs
 ============================= test session starts ==========================================
 (...)
-collected 3 items                                                                                                                                                                                                   
-pytest_pilot/test_doc/test_hardfilter.py::test_foo_yellow PASSED         [ 33%]
-pytest_pilot/test_doc/test_hardfilter.py::test_foo_red PASSED            [ 66%]
-pytest_pilot/test_doc/test_hardfilter.py::test_foo PASSED                [100%]
+collected 4 items                                                                                                                                                                                                   
+pytest_pilot/test_doc/test_hardfilter.py::test_foo_yellow PASSED         [ 25%]
+pytest_pilot/test_doc/test_hardfilter.py::test_foo_red PASSED            [ 50%]
+pytest_pilot/test_doc/test_hardfilter.py::test_foo PASSED                [ 75%]
+pytest_pilot/test_doc/test_hardfilter.py::test_bar PASSED                [100%]
 
-================================ 3 passed in 0.04s =========================================
+================================ 4 passed in 0.04s =========================================
 </code></pre></div>
 
 
@@ -843,20 +854,21 @@ pytest_pilot/test_doc/test_hardfilter.py::test_foo PASSED                [100%]
 <div class="codehilite"><pre><span></span><code>&gt;&gt;&gt; pytest -rs --flavour=red
 ============================= test session starts ==========================================
 (...)
-collected 3 items
+collected 4 items
 
-pytest_pilot/test_doc/test_hardfilter.py::test_foo_yellow SKIPPED         [ 33%]
-pytest_pilot/test_doc/test_hardfilter.py::test_foo_red PASSED             [ 66%]
-pytest_pilot/test_doc/test_hardfilter.py::test_foo SKIPPED                [100%]
+pytest_pilot/test_doc/test_hardfilter.py::test_foo_yellow SKIPPED         [ 25%]
+pytest_pilot/test_doc/test_hardfilter.py::test_foo_red PASSED             [ 50%]
+pytest_pilot/test_doc/test_hardfilter.py::test_foo SKIPPED                [ 75%]
+pytest_pilot/test_doc/test_hardfilter.py::test_bar PASSED                 [100%]
 
 ========================== short test summary info =============================================================
 SKIPPED [1] &lt;file&gt;: This test requires &#39;flavour&#39;=&#39;yellow&#39;. Currently `--flavour=red` so it is skipped.
 SKIPPED [1] &lt;file&gt;: This test does not have mark &#39;flavour&#39;, and pytest was run with `--flavour=red` so it is skipped.
-========================== 1 passed, 2 skipped in 0.04s ========================================================
+========================== 2 passed, 2 skipped in 0.04s ========================================================
 </code></pre></div>
 
 
-<p>You can see that <code>test_foo</code>, that was not marked, has been skipped. This is the main difference with the <a href="#soft-filter">soft filer</a> presented below.</p>
+<p>You can see that <code>test_foo</code>, that was not marked, has been skipped, while <code>test_bar</code>, that was explicitly marked as <code>agnostic</code>, continues to run. This is the main difference with the <a href="#soft-filter">soft filer</a> presented below.</p>
 <h4 id="soft-filter">Soft filter<a class="headerlink" href="#soft-filter" title="Permanent link">&para;</a></h4>
 <p>"Soft filter" mode is very similar to "Hard filter". The only difference is for non-marked tests. While in hard filter mode they are skipped as soon as the option is active, in soft filter mode they are always run.</p>
 <ul>
@@ -1005,7 +1017,7 @@ custom options:
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
         
-          <a href="api_reference/" title="API reference" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="api_reference/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
@@ -1039,7 +1051,7 @@ custom options:
     </div>
     
       <script src="assets/javascripts/vendor.77e55a48.min.js"></script>
-      <script src="assets/javascripts/bundle.aa3f9871.min.js"></script><script id="__lang" type="application/json">{"search.result.one": "1 matching document", "search.config.lang": "en", "clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.result.more.one": "1 more on this page", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "search.config.pipeline": "trimmer, stopWordFilter"}</script>
+      <script src="assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"search.config.lang": "en", "search.config.separator": "[\\s\\-]+", "search.result.term.missing": "Missing", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.other": "# matching documents", "search.result.more.other": "# more on this page", "clipboard.copied": "Copied to clipboard", "search.result.more.one": "1 more on this page", "clipboard.copy": "Copy to clipboard", "search.config.pipeline": "trimmer, stopWordFilter", "search.result.one": "1 matching document"}</script>
       
       <script>
         app = initialize({
