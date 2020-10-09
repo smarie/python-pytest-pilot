@@ -101,6 +101,10 @@ def test_foo_b():
 
 def test_foo():
     pass
+
+@envid.agnostic
+def test_bar():
+    pass
 ```
 
 Running `pytest` (with the `-rs` option to show a summary of skipped tests) yields:
@@ -109,16 +113,17 @@ Running `pytest` (with the `-rs` option to show a summary of skipped tests) yiel
 >>> pytest -rs
 ============================= test session starts ==========================================
 (...)
-collected 3 items
+collected 4 items
 
-pytest_pilot/test_doc/test_silos.py::test_foo_a SKIPPED       [ 33%]
-pytest_pilot/test_doc/test_silos.py::test_foo_b SKIPPED       [ 66%]
-pytest_pilot/test_doc/test_silos.py::test_foo PASSED          [100%]
+pytest_pilot/test_doc/test_silos.py::test_foo_a SKIPPED       [ 25%]
+pytest_pilot/test_doc/test_silos.py::test_foo_b SKIPPED       [ 50%]
+pytest_pilot/test_doc/test_silos.py::test_foo PASSED          [ 75%]
+pytest_pilot/test_doc/test_silos.py::test_bar PASSED          [100%]
 
 ========================== short test summary info =========================================
 SKIPPED [1] <file>: This test requires 'envid'='a'. Run `pytest --envid=a` to activate it.
 SKIPPED [1] <file>: This test requires 'envid'='b'. Run `pytest --envid=b` to activate it.
-========================== 1 passed, 2 skipped in 0.04s ====================================
+========================== 2 passed, 2 skipped in 0.04s ====================================
 ```
 
 And we can instead activate environment `'b'`.
@@ -127,19 +132,20 @@ And we can instead activate environment `'b'`.
 >>> pytest -rs --envid=b
 ============================= test session starts ==========================================
 (...)
-collected 3 items
+collected 4 items
 
-pytest_pilot/test_doc/test_silos.py::test_foo_a SKIPPED        [ 33%]
-pytest_pilot/test_doc/test_silos.py::test_foo_b PASSED         [ 66%]
-pytest_pilot/test_doc/test_silos.py::test_foo SKIPPED          [100%]
+pytest_pilot/test_doc/test_silos.py::test_foo_a SKIPPED        [ 25%]
+pytest_pilot/test_doc/test_silos.py::test_foo_b PASSED         [ 50%]
+pytest_pilot/test_doc/test_silos.py::test_foo SKIPPED          [ 75%]
+pytest_pilot/test_doc/test_silos.py::test_bar PASSED           [100%]
 
 ========================== short test summary info =============================================================
 SKIPPED [1] <file>: This test requires 'envid'='a'. Currently `--envid=b` so it is skipped.
 SKIPPED [1] <file>: This test does not have mark 'envid', and pytest was run with `--envid=b` so it is skipped
-========================== 1 passed, 2 skipped in 0.04s ========================================================
+========================== 2 passed, 2 skipped in 0.04s ========================================================
 ```
 
-Note that as can be seen above, `test_foo`, that was not marked, is now skipped (it is implicitly in the "no env" silo so if we activate another silo it becomes skipped). This is the main difference with the ["extender" mode below](#extender).
+Note that as can be seen above, `test_foo`, that was not marked, is now skipped (it is implicitly in the "no env" silo so if we activate another silo it becomes skipped). Only tests explicitly marked as agnostic (in this example `test_bar`) are allowed to run whatever the silo. This is the main difference with the ["extender" mode below](#extender).
 
 
 #### Extender
@@ -226,6 +232,10 @@ def test_foo_red():
 
 def test_foo():
     pass
+
+@flavour.agnostic
+def test_bar():
+    pass
 ```
 
 Running `pytest` (with the `-rs` option to show a summary of skipped tests) yields:
@@ -234,12 +244,13 @@ Running `pytest` (with the `-rs` option to show a summary of skipped tests) yiel
 >>> pytest -rs
 ============================= test session starts ==========================================
 (...)
-collected 3 items                                                                                                                                                                                                   
-pytest_pilot/test_doc/test_hardfilter.py::test_foo_yellow PASSED         [ 33%]
-pytest_pilot/test_doc/test_hardfilter.py::test_foo_red PASSED            [ 66%]
-pytest_pilot/test_doc/test_hardfilter.py::test_foo PASSED                [100%]
+collected 4 items                                                                                                                                                                                                   
+pytest_pilot/test_doc/test_hardfilter.py::test_foo_yellow PASSED         [ 25%]
+pytest_pilot/test_doc/test_hardfilter.py::test_foo_red PASSED            [ 50%]
+pytest_pilot/test_doc/test_hardfilter.py::test_foo PASSED                [ 75%]
+pytest_pilot/test_doc/test_hardfilter.py::test_bar PASSED                [100%]
 
-================================ 3 passed in 0.04s =========================================
+================================ 4 passed in 0.04s =========================================
 ```
 
 We can instead filter on tests with the `'red'` flavour:
@@ -248,19 +259,20 @@ We can instead filter on tests with the `'red'` flavour:
 >>> pytest -rs --flavour=red
 ============================= test session starts ==========================================
 (...)
-collected 3 items
+collected 4 items
 
-pytest_pilot/test_doc/test_hardfilter.py::test_foo_yellow SKIPPED         [ 33%]
-pytest_pilot/test_doc/test_hardfilter.py::test_foo_red PASSED             [ 66%]
-pytest_pilot/test_doc/test_hardfilter.py::test_foo SKIPPED                [100%]
+pytest_pilot/test_doc/test_hardfilter.py::test_foo_yellow SKIPPED         [ 25%]
+pytest_pilot/test_doc/test_hardfilter.py::test_foo_red PASSED             [ 50%]
+pytest_pilot/test_doc/test_hardfilter.py::test_foo SKIPPED                [ 75%]
+pytest_pilot/test_doc/test_hardfilter.py::test_bar PASSED                 [100%]
 
 ========================== short test summary info =============================================================
 SKIPPED [1] <file>: This test requires 'flavour'='yellow'. Currently `--flavour=red` so it is skipped.
 SKIPPED [1] <file>: This test does not have mark 'flavour', and pytest was run with `--flavour=red` so it is skipped.
-========================== 1 passed, 2 skipped in 0.04s ========================================================
+========================== 2 passed, 2 skipped in 0.04s ========================================================
 ```
 
-You can see that `test_foo`, that was not marked, has been skipped. This is the main difference with the [soft filer](#soft-filter) presented below.
+You can see that `test_foo`, that was not marked, has been skipped, while `test_bar`, that was explicitly marked as `agnostic`, continues to run. This is the main difference with the [soft filer](#soft-filter) presented below.
 
 
 #### Soft filter

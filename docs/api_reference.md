@@ -28,6 +28,10 @@ Creates a pair of marker + commandline option for pytest. Marker instances can b
 In addition, `<self>.param(*<argvalues>)` or `<self>(arg).param(*<argvalues>)` is a convenience method provided to
 do the same than `pytest.param(*<argvalues>, marks=<self>)` or `pytest.param(*<argvalues>, marks=<self>(arg))`.
 
+A special decorator `@<marker>.agnostic` can be used to decorate tests that should always run, whatever the configuration. 
+This is only relevant for `mode='silos'` or `mode='hard_filter'`, see below.
+
+
 **Parameters:**
 
  - `marker_id`: the name of the pytest mark. Applying this marker with `@marker(arg)` will be equivalent to applying @pytest.mark.<marker_id>(arg)

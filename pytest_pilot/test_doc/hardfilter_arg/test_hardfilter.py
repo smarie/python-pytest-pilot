@@ -13,3 +13,8 @@ def test_foo_red():
 
 def test_foo():
     pass
+
+
+@flavour.agnostic
+def test_bar():
+    pass

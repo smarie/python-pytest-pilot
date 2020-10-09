@@ -14,3 +14,7 @@ def test_foo_b():
 
 def test_foo():
     pass
+
+@envid.agnostic
+def test_bar():
+    pass
