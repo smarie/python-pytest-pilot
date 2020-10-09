@@ -339,6 +339,23 @@ You can see that now `test_foo`, that was not marked, was not skipped - as oppos
 
 ### 7. Misc
 
+#### Knowing the value of the command options inside a test
+
+There are two ways to know the value of an option associated to a marker, from within a test.
+
+ - either you can use the usual `pytest` API to get the `config` object, and from there do `config.getoption(<marker_option_name>)` where you can programmatically fill `<marker_option_name>` from `marker.cmdoption_long[2:]`.
+
+ - or you can simply use the `easymarkers` fixture. This object has one attribute per `EasyMarker` and the attribute values correspond to the corresponding commandline option value:
+
+```python
+def test_foo(easymarkers):
+    # see the value of all marker related options at once
+    print(easymarkers)
+    # see the value of the --envid option
+    print(easymarkers.envid)
+```
+
+
 #### Using the markers in parametrized tests
 
 If your tests are parametrized, you can use the markers on individual parametrization value:
