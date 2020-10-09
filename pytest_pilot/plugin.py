@@ -116,3 +116,29 @@ def pytest_runtest_setup(item):
     global all_markers
     for marker in all_markers:
         marker.skip_if_not_compliant(item)
+
+
+class EasyMarkersCurrentValues(object):
+    """Container class used in the `easymarkers` fixture below"""
+
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
+    def __repr__(self):
+        return "EasyMarkersCurrentValues(%s)" \
+               % ', '.join("%s=%s" % (k, v) for k, v in vars(self).items())
+
+
+@pytest.fixture
+def easymarkers(request):
+    """A fixture containing all EasyMarker related CLI option values"""
+
+    global all_markers
+    all_markers_dct = dict()
+    for marker in all_markers:
+        marker_name = marker.cmdoption_long[2:]
+        m_filter = request.config.getoption(marker_name)
+        all_markers_dct[marker_name] = m_filter
+
+    return EasyMarkersCurrentValues(**all_markers_dct)
