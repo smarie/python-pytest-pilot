@@ -286,7 +286,7 @@ class EasyMarker(MarkDecorator):
                 return self
         else:
             # (b) Marker with a mandatory argument: this has to be @marker(arg)
-            return self.get_mark_decorator(*args)
+            return self.get_mark_decorator(mark_values=args)
 
     @property
     def agnostic(self):
@@ -296,7 +296,7 @@ class EasyMarker(MarkDecorator):
                           "'hard_filter'")
         return self.get_mark_decorator(agnostic=True)
 
-    def get_mark_decorator(self, *mark_value, agnostic=False):
+    def get_mark_decorator(self, mark_values=(), agnostic=False):
         """
         dynamically create @pytest.mark.<marker_id>(mark_value)
         and remembers the set of all used values
@@ -304,7 +304,7 @@ class EasyMarker(MarkDecorator):
         :param mark_value:
         :return:
         """
-        nbargs = len(mark_value)
+        nbargs = len(mark_values)
         if agnostic:
             # we expect no args
             if nbargs > 0:
@@ -320,19 +320,19 @@ class EasyMarker(MarkDecorator):
                 raise ValueError("This marker '%s' has a mandatory argument" % self.marker_id)
             elif nbargs > 1:
                 raise ValueError("This marker '%s' has a single mandatory argument, received %s: %s"
-                                 % (self.marker_id, nbargs, mark_value))
+                                 % (self.marker_id, nbargs, mark_values))
             else:
                 # single value:
                 # TODO self.used_values.add(mark_value[0]) but sometimes it received a MarkDecorator
                 if self.allowed_values is not None:
-                    if mark_value[0] not in self.allowed_values:
+                    if mark_values[0] not in self.allowed_values:
                         raise ValueError("%r is not allowed for marker %r. Allowed values are %r"
-                                         % (mark_value[0], self.marker_id, self.allowed_values))
+                                         % (mark_values[0], self.marker_id, self.allowed_values))
 
         # create it
         with warnings.catch_warnings():
             warnings.filterwarnings('ignore', category=PytestUnknownMarkWarning)
-            return EasyMarkerDecorator.create_with_name(self.marker_id)(*mark_value)
+            return EasyMarkerDecorator.create_with_name(self.marker_id)(*mark_values)
 
     def apply_to_param_value(self, param_value, *args):
         """
@@ -342,7 +342,7 @@ class EasyMarker(MarkDecorator):
         :param args: the mark argument or nothing if the mark is a flag
         :return:
         """
-        mark = self.get_mark_decorator(*args)
+        mark = self.get_mark_decorator(mark_values=args)
         return apply_mark_to(mark, param_value, is_pytest_param=True)
 
     def read_marks(self, item):
