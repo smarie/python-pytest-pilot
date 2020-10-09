@@ -305,6 +305,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#knowing-the-value-of-the-command-options-inside-a-test" class="md-nav__link">
+    Knowing the value of the command options inside a test
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#using-the-markers-in-parametrized-tests" class="md-nav__link">
     Using the markers in parametrized tests
   </a>
@@ -521,6 +528,13 @@
   
     <nav class="md-nav" aria-label="7. Misc">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#knowing-the-value-of-the-command-options-inside-a-test" class="md-nav__link">
+    Knowing the value of the command options inside a test
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#using-the-markers-in-parametrized-tests" class="md-nav__link">
@@ -929,6 +943,24 @@ SKIPPED [1] &lt;file&gt;: This test requires &#39;flavour&#39;=&#39;red&#39;. Cu
 
 <p>You can see that now <code>test_foo</code>, that was not marked, was not skipped - as opposed to the previous example of "hard filter".</p>
 <h3 id="7-misc">7. Misc<a class="headerlink" href="#7-misc" title="Permanent link">&para;</a></h3>
+<h4 id="knowing-the-value-of-the-command-options-inside-a-test">Knowing the value of the command options inside a test<a class="headerlink" href="#knowing-the-value-of-the-command-options-inside-a-test" title="Permanent link">&para;</a></h4>
+<p>There are two ways to know the value of an option associated to a marker, from within a test.</p>
+<ul>
+<li>
+<p>either you can use the usual <code>pytest</code> API to get the <code>config</code> object, and from there do <code>config.getoption(&lt;marker_option_name&gt;)</code> where you can programmatically fill <code>&lt;marker_option_name&gt;</code> from <code>marker.cmdoption_long[2:]</code>.</p>
+</li>
+<li>
+<p>or you can simply use the <code>easymarkers</code> fixture. This object has one attribute per <code>EasyMarker</code> and the attribute values correspond to the corresponding commandline option value:</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">test_foo</span><span class="p">(</span><span class="n">easymarkers</span><span class="p">):</span>
+    <span class="c1"># see the value of all marker related options at once</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">easymarkers</span><span class="p">)</span>
+    <span class="c1"># see the value of the --envid option</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">easymarkers</span><span class="o">.</span><span class="n">envid</span><span class="p">)</span>
+</code></pre></div>
+
+
 <h4 id="using-the-markers-in-parametrized-tests">Using the markers in parametrized tests<a class="headerlink" href="#using-the-markers-in-parametrized-tests" title="Permanent link">&para;</a></h4>
 <p>If your tests are parametrized, you can use the markers on individual parametrization value:</p>
 <ul>
@@ -1051,7 +1083,7 @@ custom options:
     </div>
     
       <script src="assets/javascripts/vendor.77e55a48.min.js"></script>
-      <script src="assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "search.result.none": "No matching documents", "clipboard.copied": "Copied to clipboard", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.one": "1 matching document", "search.config.lang": "en"}</script>
+      <script src="assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "search.result.more.one": "1 more on this page", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.one": "1 matching document", "search.result.more.other": "# more on this page", "clipboard.copy": "Copy to clipboard", "search.result.term.missing": "Missing", "search.config.lang": "en", "search.result.none": "No matching documents", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
