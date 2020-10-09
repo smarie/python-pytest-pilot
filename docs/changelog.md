@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.7.0 - New `agnostic` mark
+
+ - `@<marker>.agnostic` can be used to decorate tests that should always run, whatever the configuration. This is only relevant for `mode='silos'` or `mode='hard_filter'`. Fixes [#15](https://github.com/smarie/python-pytest-pilot/issues/15)
+
 ### 0.6.0 - Usage in parametrization
 
  - `EasyMarker` markers can now be used on parameters in tests (and also on case functions, if you use `pytest-cases` :)). Fixes [#12](https://github.com/smarie/python-pytest-pilot/issues/12)
