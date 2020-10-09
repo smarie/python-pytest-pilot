@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.8.0 - New `easymarkers` fixture
+
+ - New `easymarkers` fixture to access current values of all CLI options related to EasyMarkers, from within tests. Fixed [#17](https://github.com/smarie/python-pytest-pilot/issues/17)
+
 ### 0.7.0 - New `agnostic` mark
 
  - `@<marker>.agnostic` can be used to decorate tests that should always run, whatever the configuration. This is only relevant for `mode='silos'` or `mode='hard_filter'`. Fixes [#15](https://github.com/smarie/python-pytest-pilot/issues/15)

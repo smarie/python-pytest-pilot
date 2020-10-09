@@ -49,3 +49,11 @@ This is only relevant for `mode='silos'` or `mode='hard_filter'`, see below.
  - `cmdoption_long`: the id to use for the "long" command option (for example providing `'env'` or `'--env'` will result in the option `'--env'`). `None` (default) will use `marker_id` for the long command option.
  - `cmdhelp`: the help message displayed when `pytest --help` is called
  - `markhelp`: the help message displayed when `pytest --markers` is called
+
+
+### `easymarkers` fixture
+
+A fixture containing all EasyMarker related CLI option current values
+    
+You can list all key-value pairs with `vars(easymarkers)` and access each
+value using attribute access: `easymarkers.<option>`.

@@ -132,7 +132,11 @@ class EasyMarkersCurrentValues(object):
 
 @pytest.fixture
 def easymarkers(request):
-    """A fixture containing all EasyMarker related CLI option values"""
+    """A fixture containing all EasyMarker related CLI option current values
+
+    You can list all key-value pairs with `vars(easymarkers)` and access each
+    value using attribute access: `easymarkers.<option>`.
+    """
 
     global all_markers
     all_markers_dct = dict()
