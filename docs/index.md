@@ -8,9 +8,9 @@
 
 In `pytest` we can create custom markers and filter tests according to them using the `-m` flag, as explained [here](https://docs.pytest.org/en/latest/example/markers.html). However 
 
- - by default it only supports one kind of marker query behaviour: a test with a mark <M> will run *even* if you do not use the `-m <M>` flag. If you wish to implement something more complex, you have to add code in your `contest.py` as explained [here](http://doc.pytest.org/en/latest/example/markers.html#marking-platform-specific-tests-with-pytest) 
+ - by default it only supports one kind of marker query behaviour: a test with a mark <M> will run *even* if you do not use the `-m <M>` flag. If you wish to implement something more complex, you have to add code in your `conftest.py` as explained [here](http://doc.pytest.org/en/latest/example/markers.html#marking-platform-specific-tests-with-pytest) 
  
- - It is also not easy to understand what happens when a marker has a parameter (an argument) and how to filter according to this. It seems from [the examples in the doc](http://doc.pytest.org/en/latest/example/markers.html#custom-marker-and-command-line-option-to-control-test-runs) that the only way to handle these is again to add code in your `contest.py`
+ - It is also not easy to understand what happens when a marker has a parameter (an argument) and how to filter according to this. It seems from [the examples in the doc](http://doc.pytest.org/en/latest/example/markers.html#custom-marker-and-command-line-option-to-control-test-runs) that the only way to handle these is again to add code in your `conftest.py`
  
  - In other words, it is not easy to expose a "functional" view to the user, even if all core mechanisms are perfectly working.
 
@@ -27,7 +27,7 @@ In `pytest` we can create custom markers and filter tests according to them usin
 
 ### 1. Basics
 
-The easiest way to define a marker is to create an instance of `EasyMarker` in [a `contest.py` file](https://docs.pytest.org/en/latest/writing_plugins.html#conftest-py-plugins). 
+The easiest way to define a marker is to create an instance of `EasyMarker` in [a `conftest.py` file](https://docs.pytest.org/en/latest/writing_plugins.html#conftest-py-plugins). 
 
 When you create a marker with `mymarker = EasyMarker('mymarker', ...)`, you get 2 things:
 
