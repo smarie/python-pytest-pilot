@@ -101,15 +101,36 @@ def pytest_configure(config):
     set_verbosity_level(verbositylevel)
 
 
-# def pytest_collection_modifyitems(items, config):
-#     # todo new option for markers to decide between skipping and deselecting ?
-#     see https://github.com/smarie/python-pytest-pilot/issues/14
-#     deselect_by_mark(items, config)
+def pytest_collection_modifyitems(items, config):
+    # Currently this implem deselects all that were usually skipped by marker CLI config.
+    # TODO new option for markers to decide between skipping and deselecting ?
+    # see https://github.com/smarie/python-pytest-pilot/issues/14
+    # Same as _pytest.markdeselect_by_mark(items, config)
+
+    remaining = []
+    deselected = []
+
+    global all_markers
+    for item in items:
+        for marker in all_markers:
+            if marker.is_not_compliant(item):
+                deselected.append(item)
+                break
+        else:
+            remaining.append(item)
+
+    assert len(remaining) + len(deselected) == len(items)
+    if deselected:
+        config.hook.pytest_deselected(items=deselected)
+        items[:] = remaining
 
 
 def pytest_runtest_setup(item):
     """
-    Dynamically skips tests that can not be run on the current environment
+    Dynamically skips tests that can not be run on the current environment.
+    Note: if items have been deselected in `pytest_collection_modifyitems` because of a commandline option,
+    this hook will not run at all for them.
+
     :param item:
     :return:
     """

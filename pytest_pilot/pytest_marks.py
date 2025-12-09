@@ -365,6 +365,28 @@ class EasyMarker(MarkDecorator):
             marks.append(mark.args[0] if self.has_arg else True)
         return marks, is_agnostic
 
+    def is_not_compliant(self, item, query=None):
+        """
+        Utility function to mark the pytest item as skipped if its markers make it not compliant with the currently
+        selected env.
+
+        :param item:
+        :param query: if None, the current options from item.config is used
+        :return:
+        """
+        is_not_compliant = False
+
+        def _skip(msg):
+            nonlocal is_not_compliant
+
+            if debug_mode:
+                print(msg)
+            is_not_compliant = True
+
+        self._do_if_not_compliant(_skip, item=item, query=query)
+
+        return is_not_compliant
+
     def skip_if_not_compliant(self, item, query=None):
         """
         Utility function to mark the pytest item as skipped if its markers make it not compliant with the currently
@@ -374,6 +396,10 @@ class EasyMarker(MarkDecorator):
         :param query: if None, the current options from item.config is used
         :return:
         """
+        self._do_if_not_compliant(pytest.skip, item=item, query=query)
+
+    def _do_if_not_compliant(self, func, item, query=None):
+
         logprefix = "[pytest-pilot] %s [marker %s] " % (item, self.marker_id)
 
         if debug_mode:
@@ -402,13 +428,13 @@ class EasyMarker(MarkDecorator):
                 if len(required_marks) > 0:
                     if self.has_arg:
                         if len(required_marks) == 1:
-                            pytest.skip("This test requires %r=%r. Run `pytest %s=%s` to activate it."
+                            func("This test requires %r=%r. Run `pytest %s=%s` to activate it."
                                         % (self.marker_id, required_marks[0], self.cmdoption_long, required_marks[0]))
                         else:
-                            pytest.skip("This test requires %r in %r. Run `pytest %s=<arg>` to activate it."
+                            func("This test requires %r in %r. Run `pytest %s=<arg>` to activate it."
                                         % (self.marker_id, required_marks, self.cmdoption_long))
                     else:
-                        pytest.skip("This test requires %r. Run `pytest %s` to activate it."
+                        func("This test requires %r. Run `pytest %s` to activate it."
                                     % (self.marker_id, self.cmdoption_long))
                 else:
                     if info_mode:
@@ -426,10 +452,10 @@ class EasyMarker(MarkDecorator):
                 # NOTE: ONE MATCH IS ENOUGH to avoid being skipped ! (this is an OR, not an AND)
                 if self.has_arg and query not in required_marks:
                     if len(required_marks) == 1:
-                        pytest.skip("This test requires %r=%r. Currently `%s=%s` so it is skipped."
+                        func("This test requires %r=%r. Currently `%s=%s` so it is skipped."
                                     % (self.marker_id, required_marks[0], self.cmdoption_long, query))
                     else:
-                        pytest.skip("This test requires %r in %r. Currently `%s=%s` so it is skipped."
+                        func("This test requires %r in %r. Currently `%s=%s` so it is skipped."
                                     % (self.marker_id, required_marks[0], self.cmdoption_long, query))
                 else:
                     # match: the test has the right mark
@@ -444,10 +470,10 @@ class EasyMarker(MarkDecorator):
                 elif self.filtering_skips_unmarked:
                     # (a) skip all tests that have no marks
                     if self.has_arg:
-                        pytest.skip("This test does not have mark '%s', and pytest was run with `%s=%s` so it is "
+                        func("This test does not have mark '%s', and pytest was run with `%s=%s` so it is "
                                     "skipped." % (self.marker_id, self.cmdoption_long, query))
                     else:
-                        pytest.skip("This test does not have mark '%s', and pytest was run with `%s` so it is "
+                        func("This test does not have mark '%s', and pytest was run with `%s` so it is "
                                     "skipped." % (self.marker_id, self.cmdoption_long))
                 else:
                     # (b) keep all tests that have no marks
