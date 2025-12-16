@@ -6,8 +6,10 @@
 
 [![Documentation](https://img.shields.io/badge/doc-latest-blue.svg)](https://smarie.github.io/python-pytest-pilot/) [![PyPI](https://img.shields.io/pypi/v/pytest-pilot.svg)](https://pypi.python.org/pypi/pytest-pilot/) [![Downloads](https://pepy.tech/badge/pytest-pilot)](https://pepy.tech/project/pytest-pilot) [![Downloads per week](https://pepy.tech/badge/pytest-pilot/week)](https://pepy.tech/project/pytest-pilot) [![GitHub stars](https://img.shields.io/github/stars/smarie/python-pytest-pilot.svg)](https://github.com/smarie/python-pytest-pilot/stargazers)
 
-!!! success "Starting in `0.9.0`, tests are deselected instead of being skipped - leading to huge performance gains 
-on large test codebases. Legacy behaviour can be set back with `--pilot-skip`, see [below](#deselecting-or-skipping)."
+!!! success 
+    "Starting in `0.9.0`, tests are deselected instead of being skipped - leading to huge performance gains 
+    on large test codebases. Legacy behaviour can be set back with `--pilot-skip`, see 
+    [below](#deselecting-or-skipping)."
 
 
 In `pytest` we can create custom markers and filter tests according to them using the `-m` flag, as explained [here](https://docs.pytest.org/en/latest/example/markers.html). However 
