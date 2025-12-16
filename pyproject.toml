@@ -5,3 +5,11 @@ requires = [
     "six",
 ]
 build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "error",
+    # note the use of single quote below to denote "raw" strings in TOML
+    'ignore:Passing unrecognized arguments to super\(PyDevIPCompleter6\):DeprecationWarning'
+    # 'ignore:function ham\(\) is deprecated:DeprecationWarning',
+]

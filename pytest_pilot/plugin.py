@@ -31,6 +31,15 @@ def pytest_addhooks(pluginmanager):
 all_markers = None
 
 
+def pytest_addoption(parser):
+    """Adds `pilot-skip` option to skip instead of deselecting."""
+    parser.addoption(
+        "--pilot-skip", action="store_true", default=False, help="pilot-skip: when this flag is used, `pytest-pilot` "
+                                                                 "will skip tests based on markers, instead of "
+                                                                 "deselecting them."
+    )
+
+
 # Note: we can not use the pytest_addoption(parser) hook because it is called before reading the users' conftest.py
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_load_initial_conftests(early_config, parser, args):
@@ -101,15 +110,41 @@ def pytest_configure(config):
     set_verbosity_level(verbositylevel)
 
 
-# def pytest_collection_modifyitems(items, config):
-#     # todo new option for markers to decide between skipping and deselecting ?
-#     see https://github.com/smarie/python-pytest-pilot/issues/14
-#     deselect_by_mark(items, config)
+def pytest_collection_modifyitems(items, config):
+    """
+    Deselects all that were usually skipped by marker CLI config, except if --pilot-skip option is used.
+    Same as _pytest.markdeselect_by_mark(items, config)
+    """
+
+    # Detect if we are in skip mode instead of deselect mode
+    should_skip = config.getoption("--pilot-skip")
+
+    if not should_skip:
+        # Deselect all tests that should not run.
+        remaining = []
+        deselected = []
+
+        global all_markers
+        for item in items:
+            for marker in all_markers:
+                if marker.is_not_compliant(item):
+                    deselected.append(item)
+                    break
+            else:
+                remaining.append(item)
+
+        assert len(remaining) + len(deselected) == len(items)
+        if deselected:
+            config.hook.pytest_deselected(items=deselected)
+            items[:] = remaining
 
 
 def pytest_runtest_setup(item):
     """
-    Dynamically skips tests that can not be run on the current environment
+    Dynamically skips tests that can not be run on the current environment.
+    Note: if items have been deselected in `pytest_collection_modifyitems` because of a commandline option,
+    this hook will not run at all for them.
+
     :param item:
     :return:
     """

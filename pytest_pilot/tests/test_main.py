@@ -1,4 +1,8 @@
-from distutils.version import LooseVersion
+try:
+    from packaging.version import parse as LooseVersion
+except ModuleNotFoundError:
+    from distutils.version import LooseVersion
+
 from os.path import dirname, join, pardir
 
 import pytest
@@ -86,7 +90,7 @@ def test_basic_options_help(testdir):
     # 2) assert
     result = testdir.runpytest(testdir.tmpdir, '--help')
 
-    if LooseVersion(pytest.__version__) < "5.0.0":
+    if LooseVersion(pytest.__version__) < LooseVersion("5.0.0"):
         # note: in old pytest the help is formatted a bit differently
         expected_lines = ["  -Z, --silo            only run tests marked as silo (marked with @silo)."]
     else:
@@ -118,7 +122,8 @@ def test_basic_options_help(testdir):
     (('--envid=env1',), dict(passed=5, skipped=2)),
     (('--flavour=red', '--envid=env2'), dict(passed=4, skipped=3))
 ])
-def test_basic_run_queries(testdir, cmdoptions, results):
+@pytest.mark.parametrize("skip_opt", [False, True])
+def test_basic_run_queries(testdir, cmdoptions, results, skip_opt):
     """executes the test in ../test_cases/basic/ folder with option --silo"""
 
     # basicdir = testdir.mkdir('basic')
@@ -128,8 +133,15 @@ def test_basic_run_queries(testdir, cmdoptions, results):
     make_file(testdir, case_folder, '__init__.py')  # required for the "import from ." to work
 
     # 2) run
+    if skip_opt:
+        cmdoptions += ("--pilot-skip",)
     result = testdir.runpytest(testdir.tmpdir, '-v', '-s', *cmdoptions)
     # the only test skipped should be the one with env2
+
+    if not skip_opt:
+        # Tests are deselected by default, they do not appear as skipped
+        results = dict(results)  # create a copy otherwise this leaks on other tests
+        results["skipped"] = 0
     result.assert_outcomes(**results)
 
 
