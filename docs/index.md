@@ -6,6 +6,10 @@
 
 [![Documentation](https://img.shields.io/badge/doc-latest-blue.svg)](https://smarie.github.io/python-pytest-pilot/) [![PyPI](https://img.shields.io/pypi/v/pytest-pilot.svg)](https://pypi.python.org/pypi/pytest-pilot/) [![Downloads](https://pepy.tech/badge/pytest-pilot)](https://pepy.tech/project/pytest-pilot) [![Downloads per week](https://pepy.tech/badge/pytest-pilot/week)](https://pepy.tech/project/pytest-pilot) [![GitHub stars](https://img.shields.io/github/stars/smarie/python-pytest-pilot.svg)](https://github.com/smarie/python-pytest-pilot/stargazers)
 
+!!! success "Starting in `0.9.0`, tests are deselected instead of being skipped - leading to huge performance gains 
+on large test codebases. Legacy behaviour can be set back with `--pilot-skip`, see [below](#deselecting-or-skipping)."
+
+
 In `pytest` we can create custom markers and filter tests according to them using the `-m` flag, as explained [here](https://docs.pytest.org/en/latest/example/markers.html). However 
 
  - by default it only supports one kind of marker query behaviour: a test with a mark <M> will run *even* if you do not use the `-m <M>` flag. If you wish to implement something more complex, you have to add code in your `conftest.py` as explained [here](http://doc.pytest.org/en/latest/example/markers.html#marking-platform-specific-tests-with-pytest) 
@@ -107,10 +111,11 @@ def test_bar():
     pass
 ```
 
-Running `pytest` (with the `-rs` option to show a summary of skipped tests) yields:
+Running `pytest` (with the `-rs` option to show a summary of skipped tests, and with the new 
+[--pilot-skip](#deselecting-or-skipping) flag) yields:
 
 ```
->>> pytest -rs
+>>> pytest -rs --pilot-skip
 ============================= test session starts ==========================================
 (...)
 collected 4 items
@@ -129,7 +134,7 @@ SKIPPED [1] <file>: This test requires 'envid'='b'. Run `pytest --envid=b` to ac
 And we can instead activate environment `'b'`.
 
 ```
->>> pytest -rs --envid=b
+>>> pytest -rs --pilot-skip --envid=b
 ============================= test session starts ==========================================
 (...)
 collected 4 items
@@ -173,10 +178,11 @@ def test_bar():
     pass
 ```
 
-Running `pytest` (with the `-rs` option to show a summary of skipped tests) yields:
+Running `pytest` (with the `-rs` option to show a summary of skipped tests, and with the new 
+[--pilot-skip](#deselecting-or-skipping) flag) yields:
 
 ```
->>> pytest -rs
+>>> pytest -rs --pilot-skip
 ============================= test session starts ==========================================
 (...)
 collected 2 items
@@ -192,7 +198,7 @@ SKIPPED [1] <file>: This test requires 'slow'. Run `pytest --slow` to activate i
 And we can run all tests including the slow ones with `--slow`:
 
 ```
->>> pytest -rs --slow
+>>> pytest -rs --pilot-skip --slow
 ============================= test session starts ==========================================
 (...)
 collected 2 items
@@ -238,10 +244,11 @@ def test_bar():
     pass
 ```
 
-Running `pytest` (with the `-rs` option to show a summary of skipped tests) yields:
+Running `pytest` (with the `-rs` option to show a summary of skipped tests, and with the new 
+[--pilot-skip](#deselecting-or-skipping) flag) yields:
 
 ```
->>> pytest -rs
+>>> pytest -rs --pilot-skip
 ============================= test session starts ==========================================
 (...)
 collected 4 items                                                                                                                                                                                                   
@@ -256,7 +263,7 @@ pytest_pilot/test_doc/test_hardfilter.py::test_bar PASSED                [100%]
 We can instead filter on tests with the `'red'` flavour:
 
 ```
->>> pytest -rs --flavour=red
+>>> pytest -rs --pilot-skip --flavour=red
 ============================= test session starts ==========================================
 (...)
 collected 4 items
@@ -304,10 +311,11 @@ def test_foo():
     pass
 ```
 
-Running `pytest` (with the `-rs` option to show a summary of skipped tests) yields:
+Running `pytest` (with the `-rs` option to show a summary of skipped tests, and with the new 
+[--pilot-skip](#deselecting-or-skipping) flag) yields:
 
 ```
->>> pytest -rs
+>>> pytest -rs --pilot-skip
 ============================= test session starts ==========================================
 (...)
 collected 3 items                                                                                                                                                                                                   
@@ -321,7 +329,7 @@ pytest_pilot/test_doc/test_hardfilter.py::test_foo PASSED                [100%]
 We can instead filter on tests with the `'yellow'` flavour:
 
 ```
->>> pytest -rs --flavour=yellow
+>>> pytest -rs --pilot-skip --flavour=yellow
 ============================= test session starts ==========================================
 (...)
 collected 3 items
@@ -338,6 +346,15 @@ SKIPPED [1] <file>: This test requires 'flavour'='red'. Currently `--flavour=yel
 You can see that now `test_foo`, that was not marked, was not skipped - as opposed to the previous example of "hard filter".
 
 ### 7. Misc
+
+#### Deselecting or skipping
+
+By default starting in version `0.9.0`, tests that should not run because of a given combination of markers and 
+commandline options are simply deselected. This is much faster on large test codebases than marking tests as skipped.
+
+The legacy mode where tests that should not run appear as "skipped" can be enabled with the new `--pilot-skip` 
+commandline option as shown above.
+
 
 #### Knowing the value of the command options inside a test
 

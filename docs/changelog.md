@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.9.0 - Tests are deselected by CLI options by default
+
+ - **Breaking change** the plugin now by default deselects all tests that were usually skipped by marker CLI config. 
+   New `--pilot-skip` flag option can be used to enable the legacy behaviour where tests where marked as skipped 
+   instead. Fixes [#20](https://github.com/smarie/python-pytest-pilot/issues/20)
+
 ### 0.8.0 - New `easymarkers` fixture
 
  - New `easymarkers` fixture to access current values of all CLI options related to EasyMarkers, from within tests. Fixed [#17](https://github.com/smarie/python-pytest-pilot/issues/17)

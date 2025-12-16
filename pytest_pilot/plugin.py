@@ -31,6 +31,15 @@ def pytest_addhooks(pluginmanager):
 all_markers = None
 
 
+def pytest_addoption(parser):
+    """Adds `pilot-skip` option to skip instead of deselecting."""
+    parser.addoption(
+        "--pilot-skip", action="store_true", default=False, help="pilot-skip: when this flag is used, `pytest-pilot` "
+                                                                 "will skip tests based on markers, instead of "
+                                                                 "deselecting them."
+    )
+
+
 # Note: we can not use the pytest_addoption(parser) hook because it is called before reading the users' conftest.py
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_load_initial_conftests(early_config, parser, args):
@@ -102,27 +111,32 @@ def pytest_configure(config):
 
 
 def pytest_collection_modifyitems(items, config):
-    # Currently this implem deselects all that were usually skipped by marker CLI config.
-    # TODO new option for markers to decide between skipping and deselecting ?
-    # see https://github.com/smarie/python-pytest-pilot/issues/14
-    # Same as _pytest.markdeselect_by_mark(items, config)
+    """
+    Deselects all that were usually skipped by marker CLI config, except if --pilot-skip option is used.
+    Same as _pytest.markdeselect_by_mark(items, config)
+    """
 
-    remaining = []
-    deselected = []
+    # Detect if we are in skip mode instead of deselect mode
+    should_skip = config.getoption("--pilot-skip")
 
-    global all_markers
-    for item in items:
-        for marker in all_markers:
-            if marker.is_not_compliant(item):
-                deselected.append(item)
-                break
-        else:
-            remaining.append(item)
+    if not should_skip:
+        # Deselect all tests that should not run.
+        remaining = []
+        deselected = []
 
-    assert len(remaining) + len(deselected) == len(items)
-    if deselected:
-        config.hook.pytest_deselected(items=deselected)
-        items[:] = remaining
+        global all_markers
+        for item in items:
+            for marker in all_markers:
+                if marker.is_not_compliant(item):
+                    deselected.append(item)
+                    break
+            else:
+                remaining.append(item)
+
+        assert len(remaining) + len(deselected) == len(items)
+        if deselected:
+            config.hook.pytest_deselected(items=deselected)
+            items[:] = remaining
 
 
 def pytest_runtest_setup(item):
